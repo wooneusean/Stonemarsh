@@ -10,11 +10,6 @@ public class WeaponProjectile : MonoBehaviour {
     public int damage = 15;
     public Enemy enemyObject;
     public float destroyTimer = 5f;
-    public GameObject player;
-    private void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
