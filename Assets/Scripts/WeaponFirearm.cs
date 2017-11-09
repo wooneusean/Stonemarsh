@@ -35,12 +35,10 @@ public class WeaponFirearm : MonoBehaviour {
         {
             delay = rateOfFire;
             Attack();
-            Debug.Log("attacking");
         }
     }
     void Attack()
     {
-        Debug.Log("shooting");
         var clone = Instantiate(projectile,prjPos,prjRotation);
         clone.GetComponent<Rigidbody>().AddForce(prjForce,ForceMode.VelocityChange);
         //Test for bool, if yes instantiate bullet with speed, control bool with animator.
