@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour {
         {
             delay = attackDelay;
             weaponAnim.SetBool("attack", true);
+            Debug.Log("attacked");
         }
         else
         {

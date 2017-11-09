@@ -16,6 +16,7 @@ public class WeaponFirearm : MonoBehaviour {
     void Start () {
         rateOfFire = player.GetComponent<PlayerController>().attackDelay;
         delay = rateOfFire;
+
     }
     Vector3 prjPos;
     Quaternion prjRotation;
@@ -34,10 +35,12 @@ public class WeaponFirearm : MonoBehaviour {
         {
             delay = rateOfFire;
             Attack();
+            Debug.Log("attacking");
         }
     }
     void Attack()
     {
+        Debug.Log("shooting");
         var clone = Instantiate(projectile,prjPos,prjRotation);
         clone.GetComponent<Rigidbody>().AddForce(prjForce,ForceMode.VelocityChange);
         //Test for bool, if yes instantiate bullet with speed, control bool with animator.
