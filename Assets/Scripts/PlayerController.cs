@@ -34,18 +34,6 @@ public class PlayerController : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
-        //Dashing
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-
-            if ((Time.time - lastTapTime) < tapSpeed)
-            {
-                Dash();
-                Debug.Log("Double tap");
-
-            }
-            lastTapTime = Time.time;
-        }
         //Attacking
         delay -= 1 * Time.deltaTime;
         if (Input.GetAxisRaw("Fire1") == 1 && delay <= 0)
@@ -73,8 +61,27 @@ public class PlayerController : MonoBehaviour {
             Move();
         }
     }
+    float time1;
+    float time2;
     void FixedUpdate()
     {
+        //Dashing
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            time1 = Time.time;
+            if ((Time.time - lastTapTime) < tapSpeed && (time1 - time2) <= tapSpeed)
+            {
+                Dash();
+                Debug.Log("Double tap");
+
+            }
+            lastTapTime = Time.time;
+        }
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            time2 = Time.time;
+        }
+        //Jumping
         CheckForGround();
         if (Input.GetAxisRaw("Jump") == 1 && Grounded && playerMovement)
         {
@@ -84,7 +91,7 @@ public class PlayerController : MonoBehaviour {
     void Dash()
     {
         player = GetComponent<Rigidbody>();
-        player.AddForce(Vector3.forward * dashSpeed);
+        player.position = player.position + transform.forward * dashSpeed;
     }
 
     void CheckForGround()
