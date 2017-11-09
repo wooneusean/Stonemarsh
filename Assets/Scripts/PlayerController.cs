@@ -114,6 +114,6 @@ public class PlayerController : MonoBehaviour {
         //    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), lookDamping);
         //}
         Vector3 movement = transform.forward * z + transform.right * x;
-        transform.Translate(movement.normalized * Time.deltaTime * moveSpeed , Space.World);
+        transform.Translate(movement.normalized * Time.deltaTime * moveSpeed * runSpeed , Space.World);
     }
 }
