@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour {
     public float dashSpeed = 20f;
     public float tapSpeed = 0.2f; //in seconds
     private float lastTapTime = 0;
+    public int doubleJump;
     // Use this for initialization
     void Start () {
         lastTapTime = 0;
@@ -83,7 +84,7 @@ public class PlayerController : MonoBehaviour {
         }
         //Jumping
         CheckForGround();
-        if (Input.GetAxisRaw("Jump") == 1 && Grounded && playerMovement)
+        if (Input.GetAxisRaw("Jump") == 1 && Grounded || doubleJump == 1 && playerMovement)
         {
             Jump();
         }
