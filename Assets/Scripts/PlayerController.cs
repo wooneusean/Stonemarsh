@@ -23,7 +23,8 @@ public class PlayerController : MonoBehaviour {
     public float dashSpeed = 20f;
     public float tapSpeed = 0.2f; //in seconds
     private float lastTapTime = 0;
-    public int doubleJump;
+    public bool doubleJump = true;
+    public bool jump = true;
     // Use this for initialization
     void Start () {
         lastTapTime = 0;
@@ -84,9 +85,25 @@ public class PlayerController : MonoBehaviour {
         }
         //Jumping
         CheckForGround();
-        if (Input.GetAxisRaw("Jump") == 1 && Grounded || doubleJump == 1 && playerMovement)
+        if (Grounded && playerMovement)
+        {
+            jump = true;
+            Debug.Log("1");
+        }
+        else if (doubleJump && playerMovement)
+        {
+            jump = true;
+            Debug.Log("2");
+        }
+        else
+        {
+            jump = false;
+            Debug.Log("3");
+        }
+        if (Input.GetAxisRaw("Jump") == 1 && jump)
         {
             Jump();
+            Debug.Log("4");
         }
     }
     void Dash()
@@ -104,10 +121,11 @@ public class PlayerController : MonoBehaviour {
         if (Physics.Raycast(transform.position, down, out groundHit, groundRange))
         {
             //do something if hit object ie
-            if (groundHit.collider.name != "Interaction")
+            if (!groundHit.collider.CompareTag("Interaction"))
             {
 
                 Grounded = true;
+                doubleJump = true;
                 Debug.Log("Close to " + groundHit.collider.name);
 
             }
@@ -119,8 +137,19 @@ public class PlayerController : MonoBehaviour {
     }
     void Jump()
     {
-        player.AddForce(Vector3.up * jumpHeight, ForceMode.VelocityChange);
-        Grounded = false;
+        if (doubleJump)
+        {
+            player.AddForce(Vector3.up * jumpHeight, ForceMode.VelocityChange);
+            Grounded = false;
+            doubleJump = false;
+        }
+        else
+        {
+            player.AddForce(Vector3.up * jumpHeight, ForceMode.VelocityChange);
+            Grounded = false;
+        }
+        
+        
     }
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
     {
