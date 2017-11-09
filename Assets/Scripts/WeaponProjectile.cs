@@ -10,19 +10,16 @@ public class WeaponProjectile : MonoBehaviour {
     public int damage = 15;
     public Enemy enemyObject;
     public float destroyTimer = 5f;
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (!collision.collider.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy"))
         {
-            Destroy(gameObject, destroyTimer);
-        }
-        else
-        {
-            collision.collider.GetComponent<Rigidbody>().AddForce(-collision.collider.transform.forward * knockback, ForceMode.VelocityChange);
-            enemyObject = collision.collider.gameObject.GetComponent<Enemy>();
+            other.GetComponent<Rigidbody>().AddForce(transform.forward * knockback, ForceMode.VelocityChange);
+            enemyObject = other.gameObject.GetComponent<Enemy>();
             enemyObject.currentHealth -= damage;
-            Debug.Log("Hit " + collision.collider.name);
-            Destroy(gameObject);
+            //make some kinda effect here
+            Debug.Log("Hit " + other.name);
         }
+        Destroy(gameObject, destroyTimer);
     }
 }
