@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 98314bdf1baa2a745ac3ce35862bc8b9
-timeCreated: 1510230594
+guid: da93dc84f9ad1c742921507874503d6b
+timeCreated: 1510232770
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -9,13 +9,13 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Cylinder
+    4300000: Cylinder.001
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: No Name
-    second: {fileID: 2100000, guid: a3d74ff3771089042af8aa462d0d26a3, type: 2}
+      name: Material
+    second: {fileID: 2100000, guid: d097d24778bc8d14fbf72858b08c6793, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
