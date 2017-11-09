@@ -90,11 +90,6 @@ public class PlayerController : MonoBehaviour {
             jump = true;
             Debug.Log("1");
         }
-        else if (doubleJump && playerMovement)
-        {
-            jump = true;
-            Debug.Log("2");
-        }
         else
         {
             jump = false;
