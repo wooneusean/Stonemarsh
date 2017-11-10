@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour {
     public float tapSpeed = 0.2f; //in seconds
     private float lastTapTime = 0;
     public bool doubleJump = true;
-    public bool jump = true;
+    public int jumpTime = 0;
     // Use this for initialization
     void Start () {
         lastTapTime = 0;
@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
+        
         //Attacking
         delay -= 1 * Time.deltaTime;
         if (Input.GetAxisRaw("Fire1") == 1 && delay <= 0)
@@ -67,6 +68,7 @@ public class PlayerController : MonoBehaviour {
     float time2;
     void FixedUpdate()
     {
+        CheckForGround();
         //Dashing
         if (Input.GetKeyDown(KeyCode.W))
         {
@@ -84,21 +86,10 @@ public class PlayerController : MonoBehaviour {
             time2 = Time.time;
         }
         //Jumping
-        CheckForGround();
-        if (Grounded && playerMovement)
-        {
-            jump = true;
-            Debug.Log("1");
-        }
-        else
-        {
-            jump = false;
-            Debug.Log("3");
-        }
-        if (Input.GetAxisRaw("Jump") == 1 && jump)
+
+        if ((Grounded || doubleJump) && playerMovement && Input.GetAxisRaw("Jump") == 1)
         {
             Jump();
-            Debug.Log("4");
         }
     }
     void Dash()
@@ -121,10 +112,10 @@ public class PlayerController : MonoBehaviour {
 
                 Grounded = true;
                 doubleJump = true;
+                jumpTime = 0;
                 Debug.Log("Close to " + groundHit.collider.name);
-
             }
-            else if (groundHit.collider == null)
+            else
             {
                 Grounded = false;
             }
@@ -132,19 +123,21 @@ public class PlayerController : MonoBehaviour {
     }
     void Jump()
     {
-        if (doubleJump)
+        Debug.Log("1");
+        if (Grounded)
         {
             player.AddForce(Vector3.up * jumpHeight, ForceMode.VelocityChange);
             Grounded = false;
-            doubleJump = false;
-        }
-        else
+        }else
         {
-            player.AddForce(Vector3.up * jumpHeight, ForceMode.VelocityChange);
-            Grounded = false;
+            if (doubleJump == true && jumpTime < 1)
+            {
+                player.AddForce(Vector3.up * jumpHeight, ForceMode.VelocityChange);
+                Grounded = false;
+                doubleJump = false;
+            }
         }
-        
-        
+
     }
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
     {
