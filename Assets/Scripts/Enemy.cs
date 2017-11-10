@@ -5,6 +5,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
     public int currentHealth;
     public int maxHealth = 30;
+    public float moveSpeed = 8f;
+    public GameObject currentTarget;
+    public Collider collCurrTarget;
     void Start()
     {
         currentHealth = maxHealth;
@@ -16,4 +19,12 @@ public class Enemy : MonoBehaviour {
             Destroy(gameObject);
         }
 	}
+    private void FixedUpdate()
+    {
+        if (currentTarget != null)
+        {
+            collCurrTarget = currentTarget.GetComponent<Collider>();
+            transform.LookAt(currentTarget.transform);
+        }
+    }
 }
