@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
     public int sens = 5;
@@ -26,8 +27,12 @@ public class PlayerController : MonoBehaviour {
     public int timesJumped = 0;
     public float jumpTime = 0;
     public bool isJumping = false;
+    public Text healthText;
+    public int currentHealth;
+    public int maxHealth = 100;
     // Use this for initialization
     void Start () {
+        currentHealth = maxHealth;
         lastTapTime = 0;
         Cursor.lockState = CursorLockMode.Locked;
         player = GetComponent<Rigidbody>();
@@ -37,7 +42,7 @@ public class PlayerController : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
-        
+        healthText.text = "Health: " + currentHealth.ToString();
         //Attacking
         delay -= 1 * Time.deltaTime;
         if (Input.GetAxisRaw("Fire1") == 1 && delay <= 0)
