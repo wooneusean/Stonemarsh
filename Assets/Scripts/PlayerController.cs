@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour {
         if (weaponChild != null)
         {
             weaponAnim = weaponChild.GetComponent<Animator>();
-            if (Input.GetAxisRaw("Fire1") == 1 && delay <= 0)
+            if (Input.GetAxisRaw("Fire1") == 1 && delay <= 0 && playerMovement)
             {
                 delay = attackDelay;
                 weaponAnim.SetBool("attack", true);
@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour {
         //Interacting
         if (Input.GetKeyDown(KeyCode.E) && playerMovement == true && inRange)
         {
+            iText.SetActive(false);
             interactedEntity.GetComponent<DialogueTrigger>().TriggerDialogue();
             playerMovement = false;
         }

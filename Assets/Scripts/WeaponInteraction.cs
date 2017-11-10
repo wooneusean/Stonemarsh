@@ -19,7 +19,13 @@ public class WeaponInteraction : MonoBehaviour {
             childObject.GetComponent<Collider>().isTrigger = true;
             childObject.GetComponent<WeaponSword>().player = player;
             player.GetComponent<PlayerController>().weaponChild = childObject.transform;
+
+            iText.SetActive(false);
+            player.GetComponent<PlayerController>().interactedEntity = null;
+            player.GetComponent<PlayerController>().iText.SetActive(false);
+            player.GetComponent<PlayerController>().inRange = false;
             Destroy(transform.parent.gameObject);
+
         }
     }
     void OnTriggerEnter(Collider other)

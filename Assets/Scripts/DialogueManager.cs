@@ -67,5 +67,6 @@ public class DialogueManager : MonoBehaviour {
     {
         animator.SetBool("isOpen", false);
         player.GetComponent<PlayerController>().playerMovement = true;
+        player.GetComponent<PlayerController>().iText.SetActive(true);
     }
 }
