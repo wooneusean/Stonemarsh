@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
     public int currentHealth;
+    public int damage = 2;
     public int maxHealth = 30;
     public float moveSpeed = 8f;
     public GameObject currentTarget;
     public Collider collCurrTarget;
     public float distFromPlayer = 1.2f;
+    public float maxAttackTime = 1.2f;
+    public float attackTime;
     void Start()
     {
-
         currentHealth = maxHealth;
+        attackTime = maxAttackTime;
     }
     // Update is called once per frame
     void Update () {
@@ -20,18 +23,22 @@ public class Enemy : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-        if (Vector3.Distance(transform.position, currentTarget.transform.position) >= distFromPlayer)
-        {
-            transform.position += transform.forward * moveSpeed * Time.deltaTime;
-
-            if (Vector3.Distance(transform.position, currentTarget.transform.position) <= distFromPlayer)
-            {
-
-            }
-
-        }
         if (currentTarget != null)
         {
+            attackTime -= Time.deltaTime;
+            if (Vector3.Distance(transform.position, currentTarget.transform.position) >= distFromPlayer)
+            {
+                transform.position += transform.forward * moveSpeed * Time.deltaTime;
+
+                if (Vector3.Distance(transform.position, currentTarget.transform.position) <= distFromPlayer)
+                {
+                    if(attackTime <= 0)
+                    {
+                        currentTarget.GetComponent<PlayerController>().currentHealth -= damage;
+                        attackTime = maxAttackTime;
+                    }
+                }
+            }
             collCurrTarget = currentTarget.GetComponent<Collider>();
             Quaternion rotation = Quaternion.LookRotation(currentTarget.transform.position - transform.position);
             rotation.x = 0f;

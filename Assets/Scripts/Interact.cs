@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Interact : MonoBehaviour {
-    public GameObject Interactable;
     public GameObject player;
     public bool isInteracting = false;
 	// Use this for initialization
@@ -13,7 +12,6 @@ public class Interact : MonoBehaviour {
         {
             player = other.gameObject;
             player.GetComponent<PlayerController>().interactedEntity = transform.parent;
-            player = other.gameObject;
             player.GetComponent<PlayerController>().iText.SetActive(true);
             player.GetComponent<PlayerController>().inRange = true;
         }

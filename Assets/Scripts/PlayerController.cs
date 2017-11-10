@@ -37,22 +37,25 @@ public class PlayerController : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
         player = GetComponent<Rigidbody>();
         delay = attackDelay;
-        weaponChild = transform.Find("Weapon");
-        weaponAnim = weaponChild.GetComponent<Animator>();
     }
     // Update is called once per frame
     void Update () {
+
         healthText.text = "Health: " + currentHealth.ToString();
         //Attacking
         delay -= 1 * Time.deltaTime;
-        if (Input.GetAxisRaw("Fire1") == 1 && delay <= 0)
+        if (weaponChild != null)
         {
-            delay = attackDelay;
-            weaponAnim.SetBool("attack", true);
-        }
-        else
-        {
-            weaponAnim.SetBool("attack", false);
+            weaponAnim = weaponChild.GetComponent<Animator>();
+            if (Input.GetAxisRaw("Fire1") == 1 && delay <= 0)
+            {
+                delay = attackDelay;
+                weaponAnim.SetBool("attack", true);
+            }
+            else
+            {
+                weaponAnim.SetBool("attack", false);
+            }
         }
         //Interacting
         if (Input.GetKeyDown(KeyCode.E) && playerMovement == true && inRange)
@@ -121,7 +124,6 @@ public class PlayerController : MonoBehaviour {
             {
 
                 Grounded = true;
-                Debug.Log("Close to " + groundHit.collider.name);
                 isJumping = false;
                 timesJumped = 0;
                 jumpTime = 0.5f;
@@ -134,7 +136,7 @@ public class PlayerController : MonoBehaviour {
     }
     void Jump()
     {
-        Debug.Log("1");
+        
         player.AddForce(Vector3.up * jumpHeight, ForceMode.VelocityChange);
         jumpTime = 0f;
         timesJumped++;
