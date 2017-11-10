@@ -19,12 +19,16 @@ public class Enemy : MonoBehaviour {
             Destroy(gameObject);
         }
 	}
+
     private void FixedUpdate()
     {
         if (currentTarget != null)
         {
             collCurrTarget = currentTarget.GetComponent<Collider>();
-            transform.LookAt(currentTarget.transform);
+            Quaternion rotation = Quaternion.LookRotation(currentTarget.transform.position - transform.position);
+            rotation.x = 0f;
+            rotation.z = 0f;
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 10f);
         }
     }
 }
