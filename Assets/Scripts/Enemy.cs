@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour {
     public float moveSpeed = 8f;
     public GameObject currentTarget;
     public Collider collCurrTarget;
+    public Vector3 offsetPosFromTarget;
     void Start()
     {
         currentHealth = maxHealth;
@@ -29,6 +30,8 @@ public class Enemy : MonoBehaviour {
             rotation.x = 0f;
             rotation.z = 0f;
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 10f);
+            
+            transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position + offsetPosFromTarget, moveSpeed * Time.deltaTime);
         }
     }
 }
