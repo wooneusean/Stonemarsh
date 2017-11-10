@@ -8,8 +8,7 @@ public class Enemy : MonoBehaviour {
     public float moveSpeed = 8f;
     public GameObject currentTarget;
     public Collider collCurrTarget;
-    public float offsetPosFromTarget = 1.2f;
-    public bool isMoving = false;
+    public float distFromPlayer = 1.2f;
     void Start()
     {
 
@@ -21,20 +20,16 @@ public class Enemy : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-        if (currentTarget != null) { 
-            if (isMoving)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position * offsetPosFromTarget, moveSpeed * Time.deltaTime);
-            }
-            if (transform.position == (currentTarget.transform.position * offsetPosFromTarget))
-            {
-                isMoving = false;
-            }
-        }
-    }
+        if (Vector3.Distance(transform.position, currentTarget.transform.position) >= distFromPlayer)
+        {
+            transform.position += transform.forward * moveSpeed * Time.deltaTime;
 
-    private void FixedUpdate()
-    {
+            if (Vector3.Distance(transform.position, currentTarget.transform.position) <= distFromPlayer)
+            {
+
+            }
+
+        }
         if (currentTarget != null)
         {
             collCurrTarget = currentTarget.GetComponent<Collider>();

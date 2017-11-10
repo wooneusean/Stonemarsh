@@ -14,13 +14,14 @@ public class AggroScript : MonoBehaviour {
     {
         if (other.CompareTag("Player"))
         {
-            parentScript.isMoving = true;
             parentScript.currentTarget = other.gameObject;
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        parentScript.isMoving = false;
-        parentScript.currentTarget = null;
+        if(other.CompareTag("Player"))
+        {
+            parentScript.currentTarget = null;
+        }
     }
 }

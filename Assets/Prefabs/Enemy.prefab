@@ -40,6 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4044189857103346}
   - component: {fileID: 135085292089111728}
+  - component: {fileID: 114210939830545374}
   m_Layer: 0
   m_Name: AggroArea
   m_TagString: Interaction
@@ -67,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1142318063408056}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -19.47, y: 1, z: -4.37}
+  m_LocalPosition: {x: 17, y: 3.3, z: 1.19}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children:
   - {fileID: 4044189857103346}
@@ -155,6 +156,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 60
+  moveSpeed: 8
+  currentTarget: {fileID: 0}
+  collCurrTarget: {fileID: 0}
+  isMoving: 0
+  distFromPlayer: 2
+--- !u!114 &114210939830545374
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1855704497155754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c73b4ff3eea17f9479ef39cb9554e8c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentObject: {fileID: 0}
+  parentScript: {fileID: 0}
 --- !u!135 &135085292089111728
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -165,5 +184,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.25
+  m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}
