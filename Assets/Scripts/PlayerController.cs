@@ -23,8 +23,9 @@ public class PlayerController : MonoBehaviour {
     public float dashSpeed = 20f;
     public float tapSpeed = 0.2f; //in seconds
     private float lastTapTime = 0;
-    public bool doubleJump = true;
-    public int jumpTime = 0;
+    public int timesJumped = 0;
+    public float jumpTime = 0;
+    public bool isJumping = false;
     // Use this for initialization
     void Start () {
         lastTapTime = 0;
@@ -86,10 +87,14 @@ public class PlayerController : MonoBehaviour {
             time2 = Time.time;
         }
         //Jumping
-
-        if ((Grounded || doubleJump) && playerMovement && Input.GetAxisRaw("Jump") == 1)
+        if (isJumping)
+        {
+            jumpTime += Time.deltaTime;
+        }
+        if (((timesJumped < 2) && (jumpTime >= 0.5)) && playerMovement && Input.GetAxisRaw("Jump") == 1)
         {
             Jump();
+            isJumping = true;
         }
     }
     void Dash()
@@ -111,9 +116,10 @@ public class PlayerController : MonoBehaviour {
             {
 
                 Grounded = true;
-                doubleJump = true;
-                jumpTime = 0;
                 Debug.Log("Close to " + groundHit.collider.name);
+                isJumping = false;
+                timesJumped = 0;
+                jumpTime = 0.5f;
             }
             else
             {
@@ -124,20 +130,9 @@ public class PlayerController : MonoBehaviour {
     void Jump()
     {
         Debug.Log("1");
-        if (Grounded)
-        {
-            player.AddForce(Vector3.up * jumpHeight, ForceMode.VelocityChange);
-            Grounded = false;
-        }else
-        {
-            if (doubleJump == true && jumpTime < 1)
-            {
-                player.AddForce(Vector3.up * jumpHeight, ForceMode.VelocityChange);
-                Grounded = false;
-                doubleJump = false;
-            }
-        }
-
+        player.AddForce(Vector3.up * jumpHeight, ForceMode.VelocityChange);
+        jumpTime = 0f;
+        timesJumped++;
     }
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
     {
