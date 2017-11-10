@@ -8,9 +8,11 @@ public class Enemy : MonoBehaviour {
     public float moveSpeed = 8f;
     public GameObject currentTarget;
     public Collider collCurrTarget;
-    public Vector3 offsetPosFromTarget;
+    public float offsetPosFromTarget = 1.2f;
+    public bool isMoving = false;
     void Start()
     {
+
         currentHealth = maxHealth;
     }
     // Update is called once per frame
@@ -19,7 +21,17 @@ public class Enemy : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-	}
+        if (currentTarget != null) { 
+            if (isMoving)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position * offsetPosFromTarget, moveSpeed * Time.deltaTime);
+            }
+            if (transform.position == (currentTarget.transform.position * offsetPosFromTarget))
+            {
+                isMoving = false;
+            }
+        }
+    }
 
     private void FixedUpdate()
     {
@@ -30,8 +42,6 @@ public class Enemy : MonoBehaviour {
             rotation.x = 0f;
             rotation.z = 0f;
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 10f);
-            
-            transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position + offsetPosFromTarget, moveSpeed * Time.deltaTime);
         }
     }
 }
