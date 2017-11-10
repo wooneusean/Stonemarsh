@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 5768d57f4b7796f48a802add2424c0ba
-timeCreated: 1510310511
+guid: 8377e506c6aa1204a8375edb215251c2
+timeCreated: 1510312340
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Circle
+    4300000: Cube
   externalObjects:
   - first:
       type: UnityEngine:Material
