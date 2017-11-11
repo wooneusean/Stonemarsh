@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour {
     public float tapSpeed = 0.2f; //in seconds
     private float lastTapTime = 0;
     public int timesJumped = 0;
+    public float jumpDelay = 0.3f;
     public float jumpTime = 0;
     public bool isJumping = false;
     public int currentHealth;
@@ -105,25 +106,28 @@ public class PlayerController : MonoBehaviour {
 
         CheckForGround();
         //Dashing
-        if (Input.GetKeyDown(KeyCode.W))
+        if (playerMovement)
         {
-            time1 = Time.time;
-            if (((Time.time - lastTapTime) < tapSpeed) && ((time1 - time2) <= tapSpeed) && (dashDelay <= 0f) && canDash)
+            if (Input.GetKeyDown(KeyCode.W))
             {
-                Dash(Vector3.up * dashAngleModifier);
+                time1 = Time.time;
+                if (((Time.time - lastTapTime) < tapSpeed) && ((time1 - time2) <= tapSpeed) && (dashDelay <= 0f) && canDash)
+                {
+                    Dash(Vector3.up * dashAngleModifier);
+                }
+                lastTapTime = Time.time;
             }
-            lastTapTime = Time.time;
-        }
-        if (Input.GetKeyUp(KeyCode.W))
-        {
-            time2 = Time.time;
+            if (Input.GetKeyUp(KeyCode.W))
+            {
+                time2 = Time.time;
+            }
         }
         //Jumping
         if (isJumping)
         {
             jumpTime += Time.deltaTime;
         }
-        if (((timesJumped < 2) && (jumpTime >= 0.5)) && playerMovement && Input.GetAxisRaw("Jump") == 1)
+        if (((timesJumped < 2) && (jumpTime >= jumpDelay)) && playerMovement && Input.GetAxisRaw("Jump") == 1)
         {
             Jump();
             isJumping = true;
