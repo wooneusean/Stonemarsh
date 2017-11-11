@@ -156,7 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   damage: 2
-  maxHealth: 60
+  maxHealth: 20
   moveSpeed: 8
   currentTarget: {fileID: 0}
   collCurrTarget: {fileID: 0}
