@@ -35,15 +35,15 @@ public class CameraControls : MonoBehaviour {
         {
             offset.z = minZ;
         }
-        float hitRange = 4f;
+        float hitRange = 10f;
         Vector3 ray = transform.position;
         RaycastHit objectHit;
-        Vector3 forward = transform.TransformDirection(transform.forward);
+        Vector3 forward = target.transform.forward;
         Debug.DrawRay(ray, forward * hitRange , Color.green);
-        if (Physics.Raycast(transform.position, forward, out objectHit, hitRange))
+        if (Physics.Raycast(ray, forward, out objectHit, hitRange))
         {
             //do something if hit object ie
-            if (!objectHit.collider.CompareTag("Player") && !objectHit.collider.CompareTag("Interaction"))
+            if (!objectHit.collider.CompareTag("Player") && !objectHit.collider.CompareTag("Interaction") && !objectHit.collider.CompareTag("Ground"))
             {
                 offset.z = objectHit.point.z;
             }

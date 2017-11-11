@@ -8,6 +8,8 @@ TagManager:
   - NPC
   - Interaction
   - Weapon
+  - Ground
+  - Prop
   layers:
   - Default
   - TransparentFX
