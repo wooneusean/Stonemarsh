@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour {
     public Transform weaponChild;
     public Animator weaponAnim;
     public float dashSpeed = 20f;
+    public float dashDelay = 1.5f;
+    public bool canDash = true;
     public float tapSpeed = 0.2f; //in seconds
     private float lastTapTime = 0;
     public int timesJumped = 0;
@@ -44,7 +46,8 @@ public class PlayerController : MonoBehaviour {
 
         healthText.text = "Health: " + currentHealth.ToString();
         //Weapon Stuff
-        delay -= 1 * Time.deltaTime;
+        delay -= Time.deltaTime;
+        dashDelay -= Time.deltaTime;
         if (weaponChild != null)
         {
 
@@ -75,17 +78,19 @@ public class PlayerController : MonoBehaviour {
         {
             Move();
         }
+
     }
     float time1;
     float time2;
     void FixedUpdate()
     {
+
         CheckForGround();
         //Dashing
         if (Input.GetKeyDown(KeyCode.W))
         {
             time1 = Time.time;
-            if ((Time.time - lastTapTime) < tapSpeed && (time1 - time2) <= tapSpeed)
+            if (((Time.time - lastTapTime) < tapSpeed) && ((time1 - time2) <= tapSpeed) && (dashDelay <= 0f) && canDash)
             {
                 Dash();
                 Debug.Log("Double tap");
@@ -110,6 +115,8 @@ public class PlayerController : MonoBehaviour {
     }
     void Dash()
     {
+        canDash = false;
+        dashDelay = 1.5f;
         player = GetComponent<Rigidbody>();
         player.AddForce(transform.forward * dashSpeed, ForceMode.VelocityChange);
     }
@@ -125,8 +132,8 @@ public class PlayerController : MonoBehaviour {
             //do something if hit object ie
             if (!groundHit.collider.CompareTag("Interaction"))
             {
-
                 Grounded = true;
+                canDash = true;
                 isJumping = false;
                 timesJumped = 0;
                 jumpTime = 0.5f;

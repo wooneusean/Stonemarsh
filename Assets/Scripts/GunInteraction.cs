@@ -8,10 +8,10 @@ public class GunInteraction : MonoBehaviour {
     public GameObject iText;
     public GameObject gunPrefab;
     public bool isInteracting = false;
+    public bool playerHasWeapon = false;
 
     private void Update()
     {
-        bool playerHasWeapon = player.GetComponent<PlayerController>().hasWeapon;
         if (Input.GetKeyDown(KeyCode.E) && isInteractable && !playerHasWeapon)
         {
             Debug.Log("2");
@@ -33,6 +33,7 @@ public class GunInteraction : MonoBehaviour {
         if (other.CompareTag("Player"))
         {
             player = other.gameObject;
+            playerHasWeapon = player.GetComponent<PlayerController>().hasWeapon;
             iText.SetActive(true);
             Debug.Log("1");
             isInteractable = true;
