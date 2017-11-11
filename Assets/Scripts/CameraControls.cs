@@ -35,7 +35,19 @@ public class CameraControls : MonoBehaviour {
         {
             offset.z = minZ;
         }
-
+        float hitRange = 4f;
+        Vector3 ray = transform.position;
+        RaycastHit objectHit;
+        Vector3 forward = transform.TransformDirection(transform.forward);
+        Debug.DrawRay(ray, forward * hitRange , Color.green);
+        if (Physics.Raycast(transform.position, forward, out objectHit, hitRange))
+        {
+            //do something if hit object ie
+            if (!objectHit.collider.CompareTag("Player") && !objectHit.collider.CompareTag("Interaction"))
+            {
+                offset.z = objectHit.point.z;
+            }
+        }
         float currentAngle = transform.eulerAngles.y;
         float desiredAngle = target.transform.eulerAngles.y;
         float angle = Mathf.LerpAngle(currentAngle, desiredAngle, Time.deltaTime * damping);
