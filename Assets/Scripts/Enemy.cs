@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour {
     public float distFromPlayer = 1.2f;
     public float maxAttackTime = 1.2f;
     public float attackTime;
+    public bool inRange = false;
     void Start()
     {
         currentHealth = maxHealth;
@@ -26,17 +27,18 @@ public class Enemy : MonoBehaviour {
         if (currentTarget != null)
         {
             attackTime -= Time.deltaTime;
+            if ((attackTime <= 0) && inRange)
+            {
+                currentTarget.GetComponent<PlayerController>().currentHealth -= damage;
+                attackTime = maxAttackTime;
+            }
             if (Vector3.Distance(transform.position, currentTarget.transform.position) >= distFromPlayer)
             {
                 transform.position += transform.forward * moveSpeed * Time.deltaTime;
-
+                inRange = false;
                 if (Vector3.Distance(transform.position, currentTarget.transform.position) <= distFromPlayer)
                 {
-                    if(attackTime <= 0)
-                    {
-                        currentTarget.GetComponent<PlayerController>().currentHealth -= damage;
-                        attackTime = maxAttackTime;
-                    }
+                    inRange = true;
                 }
             }
             collCurrTarget = currentTarget.GetComponent<Collider>();

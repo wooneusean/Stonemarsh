@@ -42,10 +42,11 @@ public class PlayerController : MonoBehaviour {
     void Update () {
 
         healthText.text = "Health: " + currentHealth.ToString();
-        //Attacking
+        //Weapon Stuff
         delay -= 1 * Time.deltaTime;
         if (weaponChild != null)
         {
+
             weaponAnim = weaponChild.GetComponent<Animator>();
             if (Input.GetAxisRaw("Fire1") == 1 && delay <= 0 && playerMovement)
             {

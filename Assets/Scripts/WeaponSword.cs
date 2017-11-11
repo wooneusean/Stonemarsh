@@ -6,7 +6,6 @@ public class WeaponSword : MonoBehaviour {
     //====================================//
     //            Swords etc.             //
     //====================================//
-    public bool isEquipped = false;
     public float knockback = 3f;
     public bool isAttacking = false;
     public int damage = 15;

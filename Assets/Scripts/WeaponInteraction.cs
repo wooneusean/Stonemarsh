@@ -15,7 +15,6 @@ public class WeaponInteraction : MonoBehaviour {
         {
             Debug.Log("2");
             GameObject childObject = Instantiate(swordPrefab,player.transform);
-            childObject.GetComponent<Animator>().SetBool("isEquipped",true);
             childObject.GetComponent<Collider>().isTrigger = true;
             childObject.GetComponent<WeaponSword>().player = player;
             player.GetComponent<PlayerController>().weaponChild = childObject.transform;
