@@ -164,6 +164,7 @@ public class PlayerController : MonoBehaviour {
             //do something if hit object ie
             if (!groundHit.collider.CompareTag("Interaction"))
             {
+                
                 Grounded = true;
                 canDash = true;
                 isJumping = false;
@@ -174,7 +175,7 @@ public class PlayerController : MonoBehaviour {
     }
     void Jump()
     {
-        
+        player.velocity = Vector3.zero;
         player.AddForce(Vector3.up * jumpHeight, ForceMode.VelocityChange);
         jumpTime = 0f;
         timesJumped++;
