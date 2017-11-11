@@ -1,15 +1,22 @@
 fileFormatVersion: 2
-guid: 7878208166c78b24084c702daff0ea5c
-timeCreated: 1510394260
+guid: a3a1792761473d148bde577adcff63f7
+timeCreated: 1510393876
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Plane_MeshPart0
+    100004: Plane_MeshPart1
     400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Plane
+    400002: Plane_MeshPart0
+    400004: Plane_MeshPart1
+    2300000: Plane_MeshPart0
+    2300002: Plane_MeshPart1
+    3300000: Plane_MeshPart0
+    3300002: Plane_MeshPart1
+    4300000: Plane_MeshPart0
+    4300002: Plane_MeshPart1
   externalObjects:
   - first:
       type: UnityEngine:Material

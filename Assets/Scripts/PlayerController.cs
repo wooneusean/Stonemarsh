@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
+    [Header("Player Settings")]
     public int sens = 5;
     public float lookDamping = 5f;
     public float moveSpeed = 5f;
@@ -11,16 +12,9 @@ public class PlayerController : MonoBehaviour {
     public float groundRange = 0.1f;
     public float jumpHeight = 4f;
     public Rigidbody player;
-    public GameObject iText;
     public bool playerMovement = true;
-    public DialogueManager DM;
-    public bool inRange = false;
-    public Transform interactedEntity;
-    public Collider weapon;
     public float attackDelay = 0.1f;
     public float delay;
-    public Transform weaponChild;
-    public Animator weaponAnim;
     public float dashSpeed = 20f;
     public float dashDelay = 1.5f;
     public bool canDash = true;
@@ -29,10 +23,20 @@ public class PlayerController : MonoBehaviour {
     public int timesJumped = 0;
     public float jumpTime = 0;
     public bool isJumping = false;
-    public Text healthText;
     public int currentHealth;
     public int maxHealth = 100;
+    [Header("Weapon Settings")]
     public bool hasWeapon = false;
+    public Collider weapon;
+    public Transform weaponChild;
+    public Animator weaponAnim;
+    public GameObject droppedWeaponObject;
+    [Header("Interaction Settings")]
+    public GameObject iText;
+    public DialogueManager DM;
+    public bool inRange = false;
+    public Transform interactedEntity;
+    public Text healthText;
     // Use this for initialization
     void Start () {
         currentHealth = maxHealth;
@@ -50,7 +54,6 @@ public class PlayerController : MonoBehaviour {
         dashDelay -= Time.deltaTime;
         if (weaponChild != null)
         {
-
             weaponAnim = weaponChild.GetComponent<Animator>();
             if (Input.GetAxisRaw("Fire1") == 1 && delay <= 0 && playerMovement)
             {
@@ -60,6 +63,10 @@ public class PlayerController : MonoBehaviour {
             else
             {
                 weaponAnim.SetBool("attack", false);
+            }
+            if (Input.GetKeyDown(KeyCode.G) && hasWeapon)
+            {
+                DropWeapon();
             }
         }
         //Interacting
@@ -80,6 +87,16 @@ public class PlayerController : MonoBehaviour {
         }
 
     }
+    void DropWeapon()
+    {
+        hasWeapon = false;
+        Destroy(weaponChild.gameObject);
+        weaponChild = null;
+        droppedWeaponObject.SetActive(true);
+        droppedWeaponObject.transform.parent = null;
+        droppedWeaponObject.GetComponent<Rigidbody>().AddForce(transform.forward);
+        droppedWeaponObject = null;
+    }
     float time1;
     float time2;
     void FixedUpdate()
@@ -93,7 +110,6 @@ public class PlayerController : MonoBehaviour {
             if (((Time.time - lastTapTime) < tapSpeed) && ((time1 - time2) <= tapSpeed) && (dashDelay <= 0f) && canDash)
             {
                 Dash();
-                Debug.Log("Double tap");
 
             }
             lastTapTime = Time.time;

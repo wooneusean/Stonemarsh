@@ -12,21 +12,24 @@ public class SwordInteraction : MonoBehaviour {
 
     private void Update()
     {
-        
+        GameObject parentObject = transform.parent.gameObject;
         if (Input.GetKeyDown(KeyCode.E) && isInteractable && !playerHasWeapon)
         {
-            Debug.Log("2");
+            
             GameObject childObject = Instantiate(swordPrefab,player.transform);
             childObject.GetComponent<Collider>().isTrigger = true;
             childObject.GetComponent<WeaponSword>().player = player;
             player.GetComponent<PlayerController>().weaponChild = childObject.transform;
             player.GetComponent<PlayerController>().hasWeapon = true;
+            player.GetComponent<PlayerController>().droppedWeaponObject = transform.parent.gameObject;
+            parentObject.transform.parent = player.transform;
+            parentObject.transform.localPosition = Vector3.zero;
+            parentObject.SetActive(false);
 
             iText.SetActive(false);
             player.GetComponent<PlayerController>().interactedEntity = null;
             player.GetComponent<PlayerController>().iText.SetActive(false);
             player.GetComponent<PlayerController>().inRange = false;
-            Destroy(transform.parent.gameObject);
 
         }
     }
@@ -37,7 +40,6 @@ public class SwordInteraction : MonoBehaviour {
             player = other.gameObject;
             playerHasWeapon = player.GetComponent<PlayerController>().hasWeapon;
             iText.SetActive(true);
-            Debug.Log("1");
             isInteractable = true;
         }
     }
@@ -46,7 +48,6 @@ public class SwordInteraction : MonoBehaviour {
         if (other.CompareTag("Player"))
         {
             isInteractable = false;
-            Debug.Log("3");
             player = other.gameObject;
             iText.SetActive(false);
             player.GetComponent<PlayerController>().interactedEntity = null;
