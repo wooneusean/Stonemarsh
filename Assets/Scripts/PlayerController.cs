@@ -47,7 +47,6 @@ public class PlayerController : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
-
         healthText.text = "Health: " + currentHealth.ToString();
         //Weapon Stuff
         delay -= Time.deltaTime;
@@ -109,7 +108,13 @@ public class PlayerController : MonoBehaviour {
             time1 = Time.time;
             if (((Time.time - lastTapTime) < tapSpeed) && ((time1 - time2) <= tapSpeed) && (dashDelay <= 0f) && canDash)
             {
-                Dash();
+                if (!isJumping)
+                {
+                    Dash(Vector3.up);
+                }else if (isJumping)
+                {
+                    Dash(Vector3.down);
+                }
 
             }
             lastTapTime = Time.time;
@@ -129,12 +134,13 @@ public class PlayerController : MonoBehaviour {
             isJumping = true;
         }
     }
-    void Dash()
+    void Dash(Vector3 upDown)
     {
+        isJumping = true;
         canDash = false;
         dashDelay = 1.5f;
         player = GetComponent<Rigidbody>();
-        player.AddForce(transform.forward * dashSpeed, ForceMode.VelocityChange);
+        player.AddForce((transform.forward + upDown) * dashSpeed, ForceMode.VelocityChange);
     }
 
     void CheckForGround()
@@ -153,10 +159,6 @@ public class PlayerController : MonoBehaviour {
                 isJumping = false;
                 timesJumped = 0;
                 jumpTime = 0.5f;
-            }
-            else
-            {
-                Grounded = false;
             }
         }
     }
