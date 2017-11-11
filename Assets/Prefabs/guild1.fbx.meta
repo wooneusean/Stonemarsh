@@ -1,78 +1,31 @@
 fileFormatVersion: 2
-guid: edf53fd49fa75804294814d18b9c94c7
-timeCreated: 1510331471
+guid: 5a2cc0e06374da549a4dd6b77a70fbe4
+timeCreated: 1510373001
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: Cube
-    100002: Cube.001
-    100004: Cube.002
-    100006: Cube.003
-    100008: Cube.004
-    100010: Cube.005
-    100012: Cube.006
-    100014: Cube.007
-    100016: Cube.008
-    100018: Cube.009
-    100020: Cube.010
-    100022: //RootNode
-    400000: Cube
-    400002: Cube.001
-    400004: Cube.002
-    400006: Cube.003
-    400008: Cube.004
-    400010: Cube.005
-    400012: Cube.006
-    400014: Cube.007
-    400016: Cube.008
-    400018: Cube.009
-    400020: Cube.010
-    400022: //RootNode
-    2300000: Cube
-    2300002: Cube.001
-    2300004: Cube.002
-    2300006: Cube.003
-    2300008: Cube.004
-    2300010: Cube.005
-    2300012: Cube.006
-    2300014: Cube.007
-    2300016: Cube.008
-    2300018: Cube.009
-    2300020: Cube.010
-    3300000: Cube
-    3300002: Cube.001
-    3300004: Cube.002
-    3300006: Cube.003
-    3300008: Cube.004
-    3300010: Cube.005
-    3300012: Cube.006
-    3300014: Cube.007
-    3300016: Cube.008
-    3300018: Cube.009
-    3300020: Cube.010
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: Cube.010
-    4300002: Cube.004
-    4300004: Cube.003
-    4300006: Cube.002
-    4300008: Cube.001
-    4300010: Cube
-    4300012: Cube.005
-    4300014: Cube.006
-    4300016: Cube.007
-    4300018: Cube.008
-    4300020: Cube.009
   externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GH_Mid
+    second: {fileID: 2100000, guid: 462c4370bef6e8e40b0628f55cf4d7bc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GH_Stone
+    second: {fileID: 2100000, guid: 2dd0632a7c47bd2448956becbb87a9bd, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material
     second: {fileID: 2100000, guid: d097d24778bc8d14fbf72858b08c6793, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: No Name
-    second: {fileID: 2100000, guid: a3d74ff3771089042af8aa462d0d26a3, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
