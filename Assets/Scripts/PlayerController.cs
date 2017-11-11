@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour {
     public float attackDelay = 0.1f;
     public float delay;
     public float dashSpeed = 20f;
+    [Range(0.1f,1)]
+    public float dashAngleModifier = 0.5f;
     public float dashDelay = 1.5f;
     public bool canDash = true;
     public float tapSpeed = 0.2f; //in seconds
@@ -108,14 +110,7 @@ public class PlayerController : MonoBehaviour {
             time1 = Time.time;
             if (((Time.time - lastTapTime) < tapSpeed) && ((time1 - time2) <= tapSpeed) && (dashDelay <= 0f) && canDash)
             {
-                if (!isJumping)
-                {
-                    Dash(Vector3.up);
-                }else if (isJumping)
-                {
-                    Dash(Vector3.down);
-                }
-
+                Dash(Vector3.up * dashAngleModifier);
             }
             lastTapTime = Time.time;
         }
@@ -134,13 +129,13 @@ public class PlayerController : MonoBehaviour {
             isJumping = true;
         }
     }
-    void Dash(Vector3 upDown)
+    void Dash(Vector3 up)
     {
         isJumping = true;
         canDash = false;
         dashDelay = 1.5f;
         player = GetComponent<Rigidbody>();
-        player.AddForce((transform.forward + upDown) * dashSpeed, ForceMode.VelocityChange);
+        player.AddForce((transform.forward + up) * dashSpeed, ForceMode.VelocityChange);
     }
 
     void CheckForGround()
