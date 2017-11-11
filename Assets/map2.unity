@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1091,18 +1091,6 @@ Prefab:
     - target: {fileID: 1419407790899266, guid: c02785fadfb6f3a438d4eecd334493a4, type: 2}
       propertyPath: m_Name
       value: campfire_prefab (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4797423942697992, guid: c02785fadfb6f3a438d4eecd334493a4, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4797423942697992, guid: c02785fadfb6f3a438d4eecd334493a4, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4797423942697992, guid: c02785fadfb6f3a438d4eecd334493a4, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c02785fadfb6f3a438d4eecd334493a4, type: 2}

@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 95623260565353460}
   - component: {fileID: 114474189456598830}
   m_Layer: 0
-  m_Name: Glock_prefab
+  m_Name: Glock_Prefab
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
