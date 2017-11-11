@@ -68,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1142318063408056}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 17, y: 3.3, z: 1.19}
+  m_LocalPosition: {x: 15.22, y: 4.1, z: 1.19}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children:
   - {fileID: 4044189857103346}
@@ -123,7 +123,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1142318063408056}
   serializedVersion: 2
-  m_Mass: 60
+  m_Mass: 20
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -137,7 +137,7 @@ BoxCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1142318063408056}
-  m_Material: {fileID: 13400000, guid: efa47fdba5c69d94a93f7a07206fc28c, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -155,12 +155,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
+  damage: 2
   maxHealth: 60
   moveSpeed: 8
   currentTarget: {fileID: 0}
   collCurrTarget: {fileID: 0}
-  isMoving: 0
   distFromPlayer: 2
+  maxAttackTime: 1.2
+  attackTime: 0
+  inRange: 0
 --- !u!114 &114210939830545374
 MonoBehaviour:
   m_ObjectHideFlags: 1

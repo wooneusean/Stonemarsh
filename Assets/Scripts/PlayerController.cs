@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour {
     public Text healthText;
     public int currentHealth;
     public int maxHealth = 100;
+    public bool hasWeapon = false;
     // Use this for initialization
     void Start () {
         currentHealth = maxHealth;
@@ -110,7 +111,7 @@ public class PlayerController : MonoBehaviour {
     void Dash()
     {
         player = GetComponent<Rigidbody>();
-        player.position = player.position + transform.forward * dashSpeed;
+        player.AddForce(transform.forward * dashSpeed, ForceMode.VelocityChange);
     }
 
     void CheckForGround()

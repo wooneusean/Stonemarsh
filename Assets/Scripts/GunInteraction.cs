@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponInteraction : MonoBehaviour {
+public class GunInteraction : MonoBehaviour {
     public bool isInteractable = false;
     public GameObject player;
     public GameObject iText;
-    public GameObject swordPrefab;
+    public GameObject gunPrefab;
     public bool isInteracting = false;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && isInteractable)
+        bool playerHasWeapon = player.GetComponent<PlayerController>().hasWeapon;
+        if (Input.GetKeyDown(KeyCode.E) && isInteractable && !playerHasWeapon)
         {
             Debug.Log("2");
-            GameObject childObject = Instantiate(swordPrefab,player.transform);
-            childObject.GetComponent<Collider>().isTrigger = true;
-            childObject.GetComponent<WeaponSword>().player = player;
+            GameObject childObject = Instantiate(gunPrefab,player.transform);
+            childObject.GetComponent<WeaponFirearm>().player = player;
             player.GetComponent<PlayerController>().weaponChild = childObject.transform;
+            player.GetComponent<PlayerController>().hasWeapon = true;
 
             iText.SetActive(false);
             player.GetComponent<PlayerController>().interactedEntity = null;
