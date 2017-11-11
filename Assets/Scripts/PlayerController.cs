@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
+    
     [Header("Player Settings")]
     public int sens = 5;
     public float lookDamping = 5f;
@@ -41,12 +42,22 @@ public class PlayerController : MonoBehaviour {
     public Transform interactedEntity;
     public Text healthText;
     // Use this for initialization
+    public PlayerStatistics localPlayerData = new PlayerStatistics();
     void Start () {
+
         currentHealth = maxHealth;
         lastTapTime = 0;
         Cursor.lockState = CursorLockMode.Locked;
         player = GetComponent<Rigidbody>();
         delay = attackDelay;
+    }
+    public void LoadPlayer()
+    {
+        localPlayerData = GlobalControl.Instance.savedPlayerData;
+    }
+    public void SavePlayer()
+    {
+        GlobalControl.Instance.savedPlayerData = localPlayerData;
     }
     // Update is called once per frame
     void Update () {
@@ -71,7 +82,7 @@ public class PlayerController : MonoBehaviour {
                 DropWeapon();
             }
         }
-        //Interacting
+        //TALKING
         if (Input.GetKeyDown(KeyCode.E) && playerMovement == true && inRange)
         {
             iText.SetActive(false);
