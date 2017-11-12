@@ -7,6 +7,7 @@ using System.Collections.Generic;
 class SmoothCameraAdvanced : MonoBehaviour
 {
     #region Private Properties
+
     private static SmoothCameraAdvanced instance = null;
     public static SmoothCameraAdvanced Instance
     {
@@ -83,7 +84,7 @@ class SmoothCameraAdvanced : MonoBehaviour
     private static Vector3 RuntimeOffset
     {
         set { PanX.Current = value.x; }
-        get { return new Vector3(PanX.Current, PanY.Current,0); }
+        get { return new Vector3(PanX.Current, PanY.Current, 0); }
     }
 
     #endregion
@@ -170,7 +171,10 @@ class SmoothCameraAdvanced : MonoBehaviour
         Controls.Add(new CameraControl(TargetEnum.PanX, KeyCode.LeftArrow, -1));
         Controls.Add(new CameraControl(TargetEnum.PanX, KeyCode.RightArrow, 1));
     }
-
+    private void Start()
+    {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+    }
     private void Awake()
     {
         if (target)
@@ -179,8 +183,6 @@ class SmoothCameraAdvanced : MonoBehaviour
 
     public void Update()
     {
-        target = GameObject.FindGameObjectWithTag("Player").transform;
-
         UpdateControls();
 
         UpdateCameraPosition();
@@ -193,18 +195,18 @@ class SmoothCameraAdvanced : MonoBehaviour
     private void UpdateControls()
     {
         // Update Controls
-        
+
         foreach (CameraControl control in controls)
         {
             // Handle Buttons
-            if(control.Value != 0)
+            if (control.Value != 0)
                 switch (control.Target)
                 {
                     case TargetEnum.Distance: Distance += control.Value; break;
                     case TargetEnum.Height: Height += control.Value; break;
                     case TargetEnum.PanX: PanX += control.Value; break;
                     case TargetEnum.PanY: PanY += control.Value; break;
-                    //case TargetEnum.Pivot: Pivot += control.Value; break;
+                        //case TargetEnum.Pivot: Pivot += control.Value; break;
                 }
         }
     }
@@ -218,7 +220,7 @@ class SmoothCameraAdvanced : MonoBehaviour
         {
             wantedPosition = Bumper.UpdatePosition(target, CameraTransform, wantedPosition, Time.deltaTime * damping);
 
-            switch(translationType)
+            switch (translationType)
             {
                 case MovementType.Instant: CameraTransform.position = wantedPosition; break;
                 case MovementType.LinearInterpolation:

@@ -9,11 +9,7 @@ public class SwordInteraction : MonoBehaviour {
     public GameObject swordPrefab;
     public bool isInteracting = false;
     public bool playerHasWeapon = false;
-    private void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-        iText = player.GetComponent<PlayerController>().iText;
-    }
+
     private void Update()
     {
         GameObject parentObject = transform.parent.gameObject;
@@ -42,6 +38,8 @@ public class SwordInteraction : MonoBehaviour {
         if (other.CompareTag("Player"))
         {
             player = other.gameObject;
+            iText = player.GetComponent<PlayerController>().iText;
+            player = other.gameObject;
             playerHasWeapon = player.GetComponent<PlayerController>().hasWeapon;
             iText.SetActive(true);
             isInteractable = true;
@@ -53,7 +51,7 @@ public class SwordInteraction : MonoBehaviour {
         {
             isInteractable = false;
             player = other.gameObject;
-            iText.SetActive(false);
+            iText = player.GetComponent<PlayerController>().iText;
             player.GetComponent<PlayerController>().interactedEntity = null;
             player.GetComponent<PlayerController>().iText.SetActive(false);
             player.GetComponent<PlayerController>().inRange = false;

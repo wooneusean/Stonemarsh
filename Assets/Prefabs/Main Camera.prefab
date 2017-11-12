@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1701914461032444}
   m_LocalRotation: {x: 0.030077832, y: -0.7235466, z: 0.03159073, w: 0.688896}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -102,7 +102,7 @@ MonoBehaviour:
     collisionType: 1
     distanceCheck: 10
     newCameraHeight: 1
-    offset: {x: 0, y: 3, z: 0}
+    offset: {x: 0, y: 5, z: 0}
   controls:
   - target: 1
     stepSize: 2
@@ -125,8 +125,8 @@ MonoBehaviour:
     mouseCode: 0
     keyCode: 275
   lookAtOffset: {x: 0, y: 0, z: 0}
-  rotationType: 2
-  translationType: 2
+  rotationType: 0
+  translationType: 1
   distance:
     min: 1
     max: 10

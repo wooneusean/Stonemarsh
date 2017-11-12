@@ -9,11 +9,6 @@ public class GunInteraction : MonoBehaviour {
     public GameObject gunPrefab;
     public bool isInteracting = false;
     public bool playerHasWeapon = false;
-    private void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-        iText = player.GetComponent<PlayerController>().iText;
-    }
     private void Update()
     {
         GameObject parentObject = transform.parent.gameObject;
@@ -39,6 +34,7 @@ public class GunInteraction : MonoBehaviour {
         if (other.CompareTag("Player"))
         {
             player = other.gameObject;
+            iText = player.GetComponent<PlayerController>().iText;
             playerHasWeapon = player.GetComponent<PlayerController>().hasWeapon;
             iText.SetActive(true);
             isInteractable = true;
@@ -50,7 +46,7 @@ public class GunInteraction : MonoBehaviour {
         {
             isInteractable = false;
             player = other.gameObject;
-            iText.SetActive(false);
+            iText = player.GetComponent<PlayerController>().iText;
             player.GetComponent<PlayerController>().interactedEntity = null;
             player.GetComponent<PlayerController>().iText.SetActive(false);
             player.GetComponent<PlayerController>().inRange = false;

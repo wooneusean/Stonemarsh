@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
-
-    public static PlayerController Instance;
+    
     [Header("Player Settings")]
     public int sens = 3;
     public float lookDamping = 2f;
@@ -49,14 +48,14 @@ public class PlayerController : MonoBehaviour {
         iText = GameObject.Find("Canvas/iText");
         LoadingScreen = GameObject.Find("Canvas/LoadingScreen");
         healthText = GameObject.Find("Canvas/HealthText").GetComponent<Text>();
-        iText.SetActive(false);
-        LoadingScreen.SetActive(false);
         currentHealth = maxHealth;
         lastTapTime = 0;
         Cursor.lockState = CursorLockMode.Locked;
         player = GetComponent<Rigidbody>();
         delay = attackDelay;
         LoadPlayer();
+        iText.SetActive(false);
+        LoadingScreen.SetActive(false);
     }
     public void LoadPlayer()
     {
