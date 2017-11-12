@@ -19,11 +19,14 @@ public class WarpScript : MonoBehaviour {
     void Start () {
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
-        interactionText = playerScript.iText;
-        LoadingScreen = playerScript.LoadingScreen;
     }
     private void Update()
     {
+        if((playerScript.LoadingScreen && playerScript.iText) && (!interactionText && !LoadingScreen))
+        {
+            interactionText = playerScript.iText;
+            LoadingScreen = playerScript.LoadingScreen;
+        }
         if (Input.GetKeyDown(KeyCode.E) && isInWarp)
         {
             StartCoroutine(LoadSceneAsync(sceneToLoad));
