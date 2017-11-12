@@ -5,12 +5,11 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 
 [Serializable]
-public class PlayerStatistics
+public struct PlayerStatistics
 {
     public int currentHealth;
     public int maxHealth;
     public bool hasWeapon;
-    public Collider weapon;
     public Transform weaponChild;
     public Animator weaponAnim;
     public GameObject droppedWeaponObject;

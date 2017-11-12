@@ -26,7 +26,6 @@ public class WarpScript : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.E) && isInWarp)
         {
-            playerScript.SavePlayer();
             StartCoroutine(LoadSceneAsync(sceneToLoad));
         }
     }
@@ -34,6 +33,7 @@ public class WarpScript : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) {
+            playerScript.SavePlayer();
             isInWarp = true;
             interactionText.SetActive(true);
         }

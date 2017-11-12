@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour {
             attackTime -= Time.deltaTime;
             if ((attackTime <= 0) && inRange)
             {
-                currentTarget.GetComponent<PlayerController>().currentHealth -= damage;
+                currentTarget.GetComponent<PlayerController>().localPlayerData.currentHealth -= damage;
                 attackTime = maxAttackTime;
             }
             if (Vector3.Distance(transform.position, currentTarget.transform.position) >= distFromPlayer)

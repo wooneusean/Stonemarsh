@@ -16,9 +16,9 @@ public class GunInteraction : MonoBehaviour {
         {
             GameObject childObject = Instantiate(gunPrefab,player.transform);
             childObject.GetComponent<WeaponFirearm>().player = player;
-            player.GetComponent<PlayerController>().weaponChild = childObject.transform;
-            player.GetComponent<PlayerController>().hasWeapon = true;
-            player.GetComponent<PlayerController>().droppedWeaponObject = transform.parent.gameObject;
+            player.GetComponent<PlayerController>().localPlayerData.weaponChild = childObject.transform;
+            player.GetComponent<PlayerController>().localPlayerData.hasWeapon = true;
+            player.GetComponent<PlayerController>().localPlayerData.droppedWeaponObject = transform.parent.gameObject;
             parentObject.transform.parent = player.transform;
             parentObject.transform.localPosition = Vector3.zero;
             parentObject.SetActive(false);
@@ -35,7 +35,7 @@ public class GunInteraction : MonoBehaviour {
         {
             player = other.gameObject;
             iText = player.GetComponent<PlayerController>().iText;
-            playerHasWeapon = player.GetComponent<PlayerController>().hasWeapon;
+            playerHasWeapon = player.GetComponent<PlayerController>().localPlayerData.hasWeapon;
             iText.SetActive(true);
             isInteractable = true;
         }

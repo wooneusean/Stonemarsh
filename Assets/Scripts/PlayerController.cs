@@ -27,17 +27,15 @@ public class PlayerController : MonoBehaviour {
     public float jumpDelay = 0.3f;
     public float jumpTime = 0;
     public bool isJumping = false;
-    public int currentHealth;
     public int maxHealth = 100;
     [Header("Weapon Settings")]
-    public bool hasWeapon = false;
-    public Collider weapon;
+    public bool hasWeapon;
     public Transform weaponChild;
     public Animator weaponAnim;
     public GameObject droppedWeaponObject;
+    public DialogueManager DM;
     [Header("Interaction Settings")]
     public GameObject iText;
-    public DialogueManager DM;
     public bool inRange = false;
     public Transform interactedEntity;
     public Text healthText;
@@ -48,42 +46,48 @@ public class PlayerController : MonoBehaviour {
         iText = GameObject.Find("Canvas/iText");
         LoadingScreen = GameObject.Find("Canvas/LoadingScreen");
         healthText = GameObject.Find("Canvas/HealthText").GetComponent<Text>();
-        currentHealth = maxHealth;
         lastTapTime = 0;
         Cursor.lockState = CursorLockMode.Locked;
         player = GetComponent<Rigidbody>();
         delay = attackDelay;
+        localPlayerData.maxHealth = maxHealth;
+        localPlayerData.currentHealth = maxHealth;
+        GlobalControl.Instance.savedPlayerData.maxHealth = localPlayerData.maxHealth;
+        if (GlobalControl.Instance.savedPlayerData.currentHealth == 0)
+        {
+            GlobalControl.Instance.savedPlayerData.currentHealth = localPlayerData.maxHealth;
+        }
         LoadPlayer();
         iText.SetActive(false);
         LoadingScreen.SetActive(false);
     }
     public void LoadPlayer()
     {
-        localPlayerData = JsonUtility.FromJson<PlayerStatistics>(GlobalControl.Instance.savedJson);
+        localPlayerData = GlobalControl.Instance.savedPlayerData;
     }
     public void SavePlayer()
     {
-        GlobalControl.Instance.savedJson = JsonUtility.ToJson(localPlayerData);
+        GlobalControl.Instance.savedPlayerData = localPlayerData;
     }
     // Update is called once per frame
     void Update () {
-        healthText.text = "Health: " + currentHealth.ToString();
+        healthText.text = "Health: " + localPlayerData.currentHealth.ToString();
         //Weapon Stuff
         delay -= Time.deltaTime;
         dashDelay -= Time.deltaTime;
-        if (weaponChild != null)
+        if (localPlayerData.weaponChild != null)
         {
-            weaponAnim = weaponChild.GetComponent<Animator>();
+            localPlayerData.weaponAnim = localPlayerData.weaponChild.GetComponent<Animator>();
             if (Input.GetAxisRaw("Fire1") == 1 && delay <= 0 && playerMovement)
             {
                 delay = attackDelay;
-                weaponAnim.SetBool("attack", true);
+                localPlayerData.weaponAnim.SetBool("attack", true);
             }
             else
             {
-                weaponAnim.SetBool("attack", false);
+                localPlayerData.weaponAnim.SetBool("attack", false);
             }
-            if (Input.GetKeyDown(KeyCode.G) && hasWeapon)
+            if (Input.GetKeyDown(KeyCode.G) && localPlayerData.hasWeapon)
             {
                 DropWeapon();
             }
@@ -97,7 +101,7 @@ public class PlayerController : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.Mouse0) && playerMovement == false && inRange)
         {
-            DM.DisplayNextSentence();
+            localPlayerData.DM.DisplayNextSentence();
         }
         //Moving
         if (playerMovement)
@@ -108,13 +112,13 @@ public class PlayerController : MonoBehaviour {
     }
     void DropWeapon()
     {
-        hasWeapon = false;
-        Destroy(weaponChild.gameObject);
-        weaponChild = null;
-        droppedWeaponObject.SetActive(true);
-        droppedWeaponObject.transform.parent = null;
-        droppedWeaponObject.GetComponent<Rigidbody>().AddForce(transform.forward);
-        droppedWeaponObject = null;
+        localPlayerData.hasWeapon = false;
+        Destroy(localPlayerData.weaponChild.gameObject);
+        localPlayerData.weaponChild = null;
+        localPlayerData.droppedWeaponObject.SetActive(true);
+        localPlayerData.droppedWeaponObject.transform.parent = null;
+        localPlayerData.droppedWeaponObject.GetComponent<Rigidbody>().AddForce(transform.forward);
+        localPlayerData.droppedWeaponObject = null;
     }
     float time1;
     float time2;
