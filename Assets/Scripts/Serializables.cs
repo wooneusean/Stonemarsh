@@ -20,12 +20,12 @@ public class PlayerStatistics
     public float dashAngleModifier;
     public float dashDelay;
     public bool canDash;
-    public float tapSpeed;
+    public float tapSpeed; //in seconds
     private float lastTapTime;
     public int timesJumped;
     public float jumpDelay;
     public float jumpTime;
-    public bool isJumping;
+    public bool isJumping = false;
     public int currentHealth;
     public int maxHealth;
     public bool hasWeapon;

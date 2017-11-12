@@ -179,6 +179,8 @@ class SmoothCameraAdvanced : MonoBehaviour
 
     public void Update()
     {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+
         UpdateControls();
 
         UpdateCameraPosition();

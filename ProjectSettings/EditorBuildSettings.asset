@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/shiet.unity
+    guid: 52e082c9780bde4479caba787f02825b
+  - enabled: 1
     path: Assets/map1.unity
     guid: 4fce2eecb2dac0546a822f88f9895ad2
   - enabled: 1

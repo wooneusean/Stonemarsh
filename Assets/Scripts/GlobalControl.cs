@@ -8,9 +8,9 @@ public class GlobalControl : MonoBehaviour {
     public PlayerStatistics savedPlayerData = new PlayerStatistics();
     void Awake()
     {
-
         if (Instance == null)
         {
+            Debug.Log(savedPlayerData);
             DontDestroyOnLoad(gameObject);
             Instance = this;
         }

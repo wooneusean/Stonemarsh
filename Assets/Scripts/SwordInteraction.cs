@@ -9,7 +9,11 @@ public class SwordInteraction : MonoBehaviour {
     public GameObject swordPrefab;
     public bool isInteracting = false;
     public bool playerHasWeapon = false;
-
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        iText = player.GetComponent<PlayerController>().iText;
+    }
     private void Update()
     {
         GameObject parentObject = transform.parent.gameObject;

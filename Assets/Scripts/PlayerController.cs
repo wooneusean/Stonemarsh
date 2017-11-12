@@ -4,19 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
-    
+
+    public static PlayerController Instance;
     [Header("Player Settings")]
-    public int sens = 5;
-    public float lookDamping = 5f;
-    public float moveSpeed = 5f;
+    public int sens = 3;
+    public float lookDamping = 2f;
+    public float moveSpeed = 10f;
     public bool Grounded;
-    public float groundRange = 0.1f;
-    public float jumpHeight = 4f;
+    public float groundRange = 1.01f;
+    public float jumpHeight = 8f;
     public Rigidbody player;
     public bool playerMovement = true;
-    public float attackDelay = 0.1f;
+    public float attackDelay = 0.5f;
     public float delay;
-    public float dashSpeed = 20f;
+    public float dashSpeed = 16f;
     [Range(0.1f,1)]
     public float dashAngleModifier = 0.5f;
     public float dashDelay = 1.5f;
@@ -41,15 +42,21 @@ public class PlayerController : MonoBehaviour {
     public bool inRange = false;
     public Transform interactedEntity;
     public Text healthText;
+    public GameObject LoadingScreen;
     // Use this for initialization
     public PlayerStatistics localPlayerData = new PlayerStatistics();
     void Start () {
-
+        iText = GameObject.Find("Canvas/iText");
+        LoadingScreen = GameObject.Find("Canvas/LoadingScreen");
+        healthText = GameObject.Find("Canvas/HealthText").GetComponent<Text>();
+        iText.SetActive(false);
+        LoadingScreen.SetActive(false);
         currentHealth = maxHealth;
         lastTapTime = 0;
         Cursor.lockState = CursorLockMode.Locked;
         player = GetComponent<Rigidbody>();
         delay = attackDelay;
+        LoadPlayer();
     }
     public void LoadPlayer()
     {
@@ -61,6 +68,7 @@ public class PlayerController : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
+        Debug.Log(GlobalControl.Instance.savedPlayerData.currentHealth);
         healthText.text = "Health: " + currentHealth.ToString();
         //Weapon Stuff
         delay -= Time.deltaTime;
