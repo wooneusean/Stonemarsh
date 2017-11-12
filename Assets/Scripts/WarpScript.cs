@@ -26,6 +26,7 @@ public class WarpScript : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.E) && isInWarp)
         {
+            playerScript.SavePlayer();
             StartCoroutine(LoadSceneAsync(sceneToLoad));
         }
     }
@@ -47,7 +48,6 @@ public class WarpScript : MonoBehaviour {
     }
     IEnumerator LoadSceneAsync(string scene)
     {
-        playerScript.SavePlayer();
         // The Application loads the Scene in the background at the same time as the current Scene.
         //This is particularly good for creating loading screens. You could also load the scene by build //number.
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene);

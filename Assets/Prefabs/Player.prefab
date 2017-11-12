@@ -278,7 +278,7 @@ MonoBehaviour:
     collisionType: 1
     distanceCheck: 10
     newCameraHeight: 1
-    offset: {x: 0, y: 5, z: 0}
+    offset: {x: 0, y: 3, z: 0}
   controls:
   - target: 1
     stepSize: 2

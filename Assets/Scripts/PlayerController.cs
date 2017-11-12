@@ -59,15 +59,14 @@ public class PlayerController : MonoBehaviour {
     }
     public void LoadPlayer()
     {
-        localPlayerData = GlobalControl.Instance.savedPlayerData;
+        localPlayerData = JsonUtility.FromJson<PlayerStatistics>(GlobalControl.Instance.savedJson);
     }
     public void SavePlayer()
     {
-        GlobalControl.Instance.savedPlayerData = localPlayerData;
+        GlobalControl.Instance.savedJson = JsonUtility.ToJson(localPlayerData);
     }
     // Update is called once per frame
     void Update () {
-        Debug.Log(GlobalControl.Instance.savedPlayerData.currentHealth);
         healthText.text = "Health: " + currentHealth.ToString();
         //Weapon Stuff
         delay -= Time.deltaTime;

@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class GlobalControl : MonoBehaviour {
     public static GlobalControl Instance;
+    public string savedJson;
     public PlayerStatistics savedPlayerData = new PlayerStatistics();
     void Awake()
     {
         if (Instance == null)
         {
-            Debug.Log(savedPlayerData);
             DontDestroyOnLoad(gameObject);
             Instance = this;
         }
@@ -18,5 +18,9 @@ public class GlobalControl : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+    }
+    private void Update()
+    {
+        Debug.Log(savedJson);
     }
 }
