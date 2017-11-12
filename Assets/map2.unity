@@ -316,7 +316,11 @@ RectTransform:
   m_GameObject: {fileID: 99850271}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_LocalPosition: {x: -207.3, y: 182.1, z: 0}
+=======
+  m_LocalPosition: {x: -207.3, y: 309.6, z: 0}
+>>>>>>> b6c39360323d075326b79a6a5c5096b46c5f4744
 =======
   m_LocalPosition: {x: -207.3, y: 309.6, z: 0}
 >>>>>>> b6c39360323d075326b79a6a5c5096b46c5f4744
@@ -660,7 +664,11 @@ RectTransform:
   m_GameObject: {fileID: 261351036}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_LocalPosition: {x: 345.5, y: 211, z: 0}
+=======
+  m_LocalPosition: {x: 345.5, y: 338.5, z: 0}
+>>>>>>> b6c39360323d075326b79a6a5c5096b46c5f4744
 =======
   m_LocalPosition: {x: 345.5, y: 338.5, z: 0}
 >>>>>>> b6c39360323d075326b79a6a5c5096b46c5f4744
@@ -849,6 +857,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 748754353b76b5c45aaf7be9d256ecde, type: 3}
   m_PrefabInternal: {fileID: 29862461}
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &592316651 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 127a23f9bb66c5149a9ccac3da86e453, type: 3}
@@ -872,6 +881,8 @@ MeshCollider:
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 127a23f9bb66c5149a9ccac3da86e453, type: 3}
 =======
+=======
+>>>>>>> b6c39360323d075326b79a6a5c5096b46c5f4744
 --- !u!1001 &472721398
 Prefab:
   m_ObjectHideFlags: 0
@@ -919,6 +930,9 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 062fdf87bf43b2b458ae7241d3083896, type: 2}
   m_IsPrefabParent: 0
+<<<<<<< HEAD
+>>>>>>> b6c39360323d075326b79a6a5c5096b46c5f4744
+=======
 >>>>>>> b6c39360323d075326b79a6a5c5096b46c5f4744
 --- !u!1 &594634350
 GameObject:
