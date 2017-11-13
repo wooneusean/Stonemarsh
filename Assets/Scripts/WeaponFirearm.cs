@@ -14,6 +14,11 @@ public class WeaponFirearm : MonoBehaviour {
     public float bulletSpeed = 100f;
     // Use this for initialization
     void Start () {
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            return;
+        }
         rateOfFire = player.GetComponent<PlayerController>().attackDelay;
         delay = rateOfFire;
 

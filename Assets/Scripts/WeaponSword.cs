@@ -12,6 +12,13 @@ public class WeaponSword : MonoBehaviour {
     public Enemy enemyObject;
     public float distFromPlayer = 2f;
     public GameObject player;
+    private void Start()
+    {
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))

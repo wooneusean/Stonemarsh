@@ -55,25 +55,16 @@ public class PlayerController : MonoBehaviour {
         LoadPlayer();
         if (GlobalControl.Instance.savedPlayerData.hasWeapon)
         {
-            localPlayerData.droppedWeaponObject = Instantiate(GetPrefabFromPath(GlobalControl.Instance.savedPlayerData.droppedWeaponObjectPath), transform);
+            GlobalControl.Instance.savedPlayerData.weaponChild = Resources.Load<Transform>(GlobalControl.Instance.savedPlayerData.weaponChildPath);
+            GlobalControl.Instance.savedPlayerData.droppedWeaponObject = Resources.Load<GameObject>(GlobalControl.Instance.savedPlayerData.droppedWeaponObjectPath);
+            Debug.Log(GlobalControl.Instance.savedPlayerData.droppedWeaponObjectPath);
+            localPlayerData.droppedWeaponObject = Instantiate(Resources.Load<GameObject>(GlobalControl.Instance.savedPlayerData.droppedWeaponObjectPath), transform);
+            localPlayerData.droppedWeaponObject.transform.localPosition = Vector3.zero;
             localPlayerData.droppedWeaponObject.SetActive(false);
-            localPlayerData.weaponChild = Instantiate(GetPrefabFromPath(GlobalControl.Instance.savedPlayerData.weaponChildPath), transform).transform;
+            localPlayerData.weaponChild = Instantiate(Resources.Load<Transform>(GlobalControl.Instance.savedPlayerData.weaponChildPath), transform).transform;
         }
         iText.SetActive(false);
         LoadingScreen.SetActive(false);
-    }
-    public GameObject GetPrefabFromPath(string path)
-    {
-        GameObject prefabInstance = Resources.Load<GameObject>(path);
-        Debug.Log(prefabInstance.name);
-        return prefabInstance;
-    }
-    public string GetPrefabPath(GameObject prefab)
-    {
-        Object go = PrefabUtility.GetPrefabParent(prefab);
-        string prefabPath = AssetDatabase.GetAssetPath(go);
-        Debug.Log(prefabPath);
-        return prefabPath;
     }
     public void LoadPlayer()
     {
@@ -95,7 +86,6 @@ public class PlayerController : MonoBehaviour {
         dashDelay -= Time.deltaTime;
         if (localPlayerData.weaponChild != null)
         {
-            localPlayerData.weaponChildPath = GetPrefabPath(localPlayerData.weaponChild.gameObject);
             localPlayerData.weaponAnim = localPlayerData.weaponChild.GetComponent<Animator>();
             if (Input.GetAxisRaw("Fire1") == 1 && delay <= 0 && playerMovement)
             {

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class GunInteraction : MonoBehaviour {
@@ -17,20 +18,34 @@ public class GunInteraction : MonoBehaviour {
         {
             playerScript = player.GetComponent<PlayerController>();
             GameObject childObject = Instantiate(gunPrefab,player.transform);
+            childObject.name = childObject.name.Replace("(Clone)", "");
             childObject.GetComponent<WeaponFirearm>().player = player;
             playerScript.localPlayerData.weaponChild = childObject.transform;
+            playerScript.localPlayerData.weaponChildPath = GetPrefabPath(gunPrefab);
             playerScript.localPlayerData.hasWeapon = true;
             playerScript.localPlayerData.droppedWeaponObject = transform.parent.gameObject;
-            playerScript.localPlayerData.droppedWeaponObjectPath = playerScript.GetPrefabPath(transform.parent.gameObject);
+            playerScript.localPlayerData.droppedWeaponObjectPath = GetPrefabPathWithParent(transform.parent.gameObject);
             parentObject.transform.parent = player.transform;
             parentObject.transform.localPosition = Vector3.zero;
             parentObject.SetActive(false);
 
             iText.SetActive(false);
-            player.GetComponent<PlayerController>().interactedEntity = null;
-            player.GetComponent<PlayerController>().iText.SetActive(false);
-            player.GetComponent<PlayerController>().inRange = false;
+            playerScript.interactedEntity = null;
+            playerScript.iText.SetActive(false);
+            playerScript.inRange = false;
         }
+    }
+    public string GetPrefabPath(GameObject prefab)
+    {
+        Object go = PrefabUtility.GetPrefabObject(prefab);
+        string prefabPath = AssetDatabase.GetAssetPath(go);
+        return prefabPath.Replace("Assets/Resources/", "").Replace(".prefab", ""); ;
+    }
+    public string GetPrefabPathWithParent(GameObject prefab)
+    {
+        Object go = PrefabUtility.GetPrefabParent(prefab);
+        string prefabPath = AssetDatabase.GetAssetPath(go);
+        return prefabPath.Replace("Assets/Resources/", "").Replace(".prefab", ""); ;
     }
     void OnTriggerEnter(Collider other)
     {

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class SwordInteraction : MonoBehaviour {
@@ -17,12 +18,14 @@ public class SwordInteraction : MonoBehaviour {
         {
             playerScript = player.GetComponent<PlayerController>();
             GameObject childObject = Instantiate(swordPrefab,player.transform);
+            childObject.name = childObject.name.Replace("(Clone)", "");
             childObject.GetComponent<WeaponSword>().player = player;
             childObject.GetComponent<Collider>().isTrigger = true;
             playerScript.localPlayerData.weaponChild = childObject.transform;
+            playerScript.localPlayerData.weaponChildPath = GetPrefabPath(swordPrefab);
             playerScript.localPlayerData.hasWeapon = true;
             playerScript.localPlayerData.droppedWeaponObject = transform.parent.gameObject;
-            playerScript.localPlayerData.droppedWeaponObjectPath = playerScript.GetPrefabPath(transform.parent.gameObject);
+            playerScript.localPlayerData.droppedWeaponObjectPath = GetPrefabPathWithParent(transform.parent.gameObject);
             parentObject.transform.parent = player.transform;
             parentObject.transform.localPosition = Vector3.zero;
             parentObject.SetActive(false);
@@ -32,6 +35,18 @@ public class SwordInteraction : MonoBehaviour {
             playerScript.iText.SetActive(false);
             playerScript.inRange = false;
         }
+    }
+    public string GetPrefabPath(GameObject prefab)
+    {
+        Object go = PrefabUtility.GetPrefabObject(prefab);
+        string prefabPath = AssetDatabase.GetAssetPath(go);
+        return prefabPath.Replace("Assets/Resources/", "").Replace(".prefab","");
+    }
+    public string GetPrefabPathWithParent(GameObject prefab)
+    {
+        Object go = PrefabUtility.GetPrefabParent(prefab);
+        string prefabPath = AssetDatabase.GetAssetPath(go);
+        return prefabPath.Replace("Assets/Resources/", "").Replace(".prefab", ""); ;
     }
     void OnTriggerEnter(Collider other)
     {
