@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: b990cb8ab7b1c304488c001950d29492
-timeCreated: 1510553421
+guid: 5666bd8263fdc6649987bd3d11d0d29f
+timeCreated: 1510577692
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -14,8 +14,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: No Name
-    second: {fileID: 2100000, guid: 1794bfcee0301074893c71a3b30085b4, type: 2}
+      name: Snow
+    second: {fileID: 2100000, guid: f56a68066d96de24c981b50d771308f6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stone
+    second: {fileID: 2100000, guid: e0d0c6b9776c82f4d849eff4e416f28e, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

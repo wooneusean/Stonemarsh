@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: f4754e9241be00042bc4e7f799333c82
-timeCreated: 1510567090
+guid: a804e367484d7384999a52f76197cb3d
+timeCreated: 1510577575
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -20,7 +20,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Stone
-    second: {fileID: 2100000, guid: 5badd06951749e040aa8c31ef635bf11, type: 2}
+    second: {fileID: 2100000, guid: e0d0c6b9776c82f4d849eff4e416f28e, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
