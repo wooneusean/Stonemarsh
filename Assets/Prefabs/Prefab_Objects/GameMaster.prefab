@@ -51,3 +51,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d79e01d24a061438668fa80e919aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  savedPlayerData:
+    currentHealth: 0
+    maxHealth: 0
+    hasWeapon: 0
+    weaponChild: {fileID: 0}
+    weaponAnim: {fileID: 0}
+    droppedWeaponObject: {fileID: 0}
+    DM: {fileID: 0}

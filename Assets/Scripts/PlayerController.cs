@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,12 +29,6 @@ public class PlayerController : MonoBehaviour {
     public float jumpTime = 0;
     public bool isJumping = false;
     public int maxHealth = 100;
-    [Header("Weapon Settings")]
-    public bool hasWeapon;
-    public Transform weaponChild;
-    public Animator weaponAnim;
-    public GameObject droppedWeaponObject;
-    public DialogueManager DM;
     [Header("Interaction Settings")]
     public GameObject iText;
     public bool inRange = false;
@@ -58,8 +53,28 @@ public class PlayerController : MonoBehaviour {
             GlobalControl.Instance.savedPlayerData.currentHealth = localPlayerData.maxHealth;
         }
         LoadPlayer();
+        //if (GlobalControl.Instance.savedPlayerData.hasWeapon)
+        //{
+        //    localPlayerData.droppedWeaponObject = Instantiate(GetPrefabFromPath(GetPrefabPath(GlobalControl.Instance.savedPlayerData.droppedWeaponObject)), transform);
+        //    localPlayerData.droppedWeaponObject.SetActive(false);
+        //    localPlayerData.weaponChild = Instantiate(GetPrefabFromPath(GetPrefabPath(GlobalControl.Instance.savedPlayerData.weaponChild)), transform).transform;
+        //}
         iText.SetActive(false);
         LoadingScreen.SetActive(false);
+    }
+    //public GameObject GetPrefabFromPath(string path,string type)
+    //{
+    //    GameObject prefabInstance = Resources.Load<GameObject>(path);
+    //    if (type == "GameObject")
+    //    {
+
+    //    }
+    //}
+    public string GetPrefabPath(GameObject prefab)
+    {
+        Object go = PrefabUtility.GetPrefabParent(prefab);
+        string prefabPath = AssetDatabase.GetAssetPath(go);
+        return prefabPath;
     }
     public void LoadPlayer()
     {
@@ -71,6 +86,10 @@ public class PlayerController : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            SavePlayer();
+        }
         healthText.text = "Health: " + localPlayerData.currentHealth.ToString();
         //Weapon Stuff
         delay -= Time.deltaTime;
@@ -210,6 +229,6 @@ public class PlayerController : MonoBehaviour {
         //    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), lookDamping);
         //}
         Vector3 movement = transform.forward * z + transform.right * x;
-        transform.Translate(movement.normalized * Time.deltaTime * moveSpeed * runSpeed , Space.World);
+        transform.Translate(movement.normalized * Time.deltaTime * moveSpeed * runSpeed, Space.World);
     }
 }
