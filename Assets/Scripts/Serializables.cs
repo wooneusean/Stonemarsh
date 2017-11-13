@@ -11,7 +11,9 @@ public struct PlayerStatistics
     public int maxHealth;
     public bool hasWeapon;
     public Transform weaponChild;
+    public string weaponChildPath;
     public Animator weaponAnim;
     public GameObject droppedWeaponObject;
+    public string droppedWeaponObjectPath;
     public DialogueManager DM;
 }

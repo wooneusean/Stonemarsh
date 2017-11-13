@@ -5,6 +5,7 @@ using UnityEngine;
 public class GunInteraction : MonoBehaviour {
     public bool isInteractable = false;
     public GameObject player;
+    public PlayerController playerScript;
     public GameObject iText;
     public GameObject gunPrefab;
     public bool isInteracting = false;
@@ -14,11 +15,13 @@ public class GunInteraction : MonoBehaviour {
         GameObject parentObject = transform.parent.gameObject;
         if (Input.GetKeyDown(KeyCode.E) && isInteractable && !playerHasWeapon)
         {
+            playerScript = player.GetComponent<PlayerController>();
             GameObject childObject = Instantiate(gunPrefab,player.transform);
             childObject.GetComponent<WeaponFirearm>().player = player;
-            player.GetComponent<PlayerController>().localPlayerData.weaponChild = childObject.transform;
-            player.GetComponent<PlayerController>().localPlayerData.hasWeapon = true;
-            player.GetComponent<PlayerController>().localPlayerData.droppedWeaponObject = transform.parent.gameObject;
+            playerScript.localPlayerData.weaponChild = childObject.transform;
+            playerScript.localPlayerData.hasWeapon = true;
+            playerScript.localPlayerData.droppedWeaponObject = transform.parent.gameObject;
+            playerScript.localPlayerData.droppedWeaponObjectPath = playerScript.GetPrefabPath(transform.parent.gameObject);
             parentObject.transform.parent = player.transform;
             parentObject.transform.localPosition = Vector3.zero;
             parentObject.SetActive(false);
