@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour {
     public float attackDelay = 0.5f;
     public float delay;
     public float dashSpeed = 16f;
+    public int maxHealth = 100;
+    public int maxEnergy = 20;
     [Range(0.1f,1)]
     public float dashAngleModifier = 0.5f;
     public float dashDelay = 1.5f;
@@ -28,29 +30,39 @@ public class PlayerController : MonoBehaviour {
     public float jumpDelay = 0.3f;
     public float jumpTime = 0;
     public bool isJumping = false;
-    public int maxHealth = 100;
+    public float energyCooldown = 2f;
     [Header("Interaction Settings")]
+    public DialogueManager DM;
     public GameObject iText;
     public bool inRange = false;
     public Transform interactedEntity;
     public Text healthText;
+    public Text energyText;
     public GameObject LoadingScreen;
+
     // Use this for initialization
     public PlayerStatistics localPlayerData = new PlayerStatistics();
     void Start () {
         iText = GameObject.Find("Canvas/iText");
         LoadingScreen = GameObject.Find("Canvas/LoadingScreen");
         healthText = GameObject.Find("Canvas/HealthText").GetComponent<Text>();
+        energyText = GameObject.Find("Canvas/EnergyText").GetComponent<Text>();
         lastTapTime = 0;
         Cursor.lockState = CursorLockMode.Locked;
         player = GetComponent<Rigidbody>();
         delay = attackDelay;
+        DM = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
         localPlayerData.maxHealth = maxHealth;
-        localPlayerData.currentHealth = maxHealth;
+        localPlayerData.maxEnergy = maxEnergy;
         GlobalControl.Instance.savedPlayerData.maxHealth = localPlayerData.maxHealth;
+        GlobalControl.Instance.savedPlayerData.maxEnergy = localPlayerData.maxEnergy;
         if (GlobalControl.Instance.savedPlayerData.currentHealth == 0)
         {
             GlobalControl.Instance.savedPlayerData.currentHealth = localPlayerData.maxHealth;
+        }
+        if (GlobalControl.Instance.savedPlayerData.currentEnergy == 0)
+        {
+            GlobalControl.Instance.savedPlayerData.currentEnergy = localPlayerData.maxEnergy;
         }
         LoadPlayer();
         if (GlobalControl.Instance.savedPlayerData.hasWeapon)
@@ -80,7 +92,17 @@ public class PlayerController : MonoBehaviour {
         {
             SavePlayer();
         }
+        energyCooldown -= Time.deltaTime;
+        if (localPlayerData.currentEnergy != maxEnergy && energyCooldown <= 0)
+        {
+            localPlayerData.currentEnergy += 1;
+        }
+        else if (localPlayerData.currentEnergy >= maxEnergy)
+        {
+            localPlayerData.currentEnergy = maxEnergy;
+        }
         healthText.text = "Health: " + localPlayerData.currentHealth.ToString();
+        energyText.text = "Energy: " + localPlayerData.currentEnergy.ToString();
         //Weapon Stuff
         delay -= Time.deltaTime;
         dashDelay -= Time.deltaTime;
@@ -110,7 +132,7 @@ public class PlayerController : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.Mouse0) && playerMovement == false && inRange)
         {
-            localPlayerData.DM.DisplayNextSentence();
+            DM.DisplayNextSentence();
         }
         //Moving
         if (playerMovement)
@@ -133,7 +155,6 @@ public class PlayerController : MonoBehaviour {
     float time2;
     void FixedUpdate()
     {
-
         CheckForGround();
         //Dashing
         if (playerMovement)
@@ -171,19 +192,17 @@ public class PlayerController : MonoBehaviour {
         player = GetComponent<Rigidbody>();
         player.AddForce((transform.forward + up) * dashSpeed, ForceMode.VelocityChange);
     }
-
     void CheckForGround()
     {
         Vector3 rayGround = transform.position;
         RaycastHit groundHit;
         Vector3 down = transform.TransformDirection(Vector3.down);
-        Debug.DrawRay(rayGround, down * groundRange, Color.red);
-        if (Physics.Raycast(transform.position, down, out groundHit, groundRange))
+
+        if (Physics.SphereCast(transform.position, 0.1f, down, out groundHit, 1.01f))
         {
             //do something if hit object ie
-            if (!groundHit.collider.CompareTag("Interaction"))
+            if (!groundHit.collider.CompareTag("Interaction") && !groundHit.collider.CompareTag("Player"))
             {
-                
                 Grounded = true;
                 canDash = true;
                 isJumping = false;

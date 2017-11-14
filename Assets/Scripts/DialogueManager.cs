@@ -7,6 +7,7 @@ public class DialogueManager : MonoBehaviour {
 
     public Text nameText;
     public Text dialogueText;
+    public GameObject dialogueBox;
 
     public GameObject player;
 
@@ -16,6 +17,9 @@ public class DialogueManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        player = GameObject.FindGameObjectWithTag("Player");
+        dialogueBox = GameObject.Find("DialogueBox");
+        animator = dialogueBox.GetComponent<Animator>();
         sentences = new Queue<string>();
 	}
 	

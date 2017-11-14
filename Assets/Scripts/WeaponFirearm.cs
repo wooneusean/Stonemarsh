@@ -8,10 +8,12 @@ public class WeaponFirearm : MonoBehaviour {
     //====================================//
     public float rateOfFire = 0.5f;
     public GameObject player;
+    public PlayerController playerScript;
     public bool isAttacking = false;
     public float delay;
     public GameObject projectile;
     public float bulletSpeed = 100f;
+    public int energyConsumption = 5;
     // Use this for initialization
     void Start () {
         if (player == null)
@@ -19,6 +21,7 @@ public class WeaponFirearm : MonoBehaviour {
             player = GameObject.FindGameObjectWithTag("Player");
             return;
         }
+        playerScript = player.GetComponent<PlayerController>();
         rateOfFire = player.GetComponent<PlayerController>().attackDelay;
         delay = rateOfFire;
 
@@ -29,6 +32,10 @@ public class WeaponFirearm : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        if (playerScript == null)
+        {
+            playerScript = player.GetComponent<PlayerController>();
+        }
         prjPos = transform.position + new Vector3(0f, -0.0065f, 0.004f);
         prjRotation = player.transform.rotation;
         delay -= 1 * Time.deltaTime;
@@ -36,11 +43,15 @@ public class WeaponFirearm : MonoBehaviour {
     private void FixedUpdate()
     {
         prjForce = player.transform.forward * bulletSpeed;
-        if (isAttacking && delay <= 0)
+        if (isAttacking && delay <= 0 && playerScript.localPlayerData.currentEnergy >= energyConsumption)
         {
+            playerScript.localPlayerData.currentEnergy -= energyConsumption;
+            playerScript.energyCooldown = 2f;
             delay = rateOfFire;
             Attack();
         }
+
+
     }
     void Attack()
     {

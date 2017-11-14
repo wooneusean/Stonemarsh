@@ -116,7 +116,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rateOfFire: 0.5
   player: {fileID: 0}
+  playerScript: {fileID: 0}
   isAttacking: 0
   delay: 0
   projectile: {fileID: 1802575563296980, guid: 8f336b7569a6b8848840b5b078969b29, type: 2}
   bulletSpeed: 100
+  energyConsumption: 2

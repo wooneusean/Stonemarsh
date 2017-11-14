@@ -74,21 +74,21 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1264678225099646}
-  m_LocalRotation: {x: 0.043619376, y: 0.00000068545336, z: -0.000000016763805, w: 0.99904823}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalRotation: {x: -0.043582298, y: -0.041312687, z: 0.0018037562, w: -0.9981937}
+  m_LocalPosition: {x: 0, y: 69.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4435489080348360}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 5, y: -92.811005, z: 0}
+  m_LocalEulerAnglesHint: {x: 5, y: 364.74, z: 0}
 --- !u!4 &4435489080348360
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1260741320283944}
-  m_LocalRotation: {x: -0, y: -0.7242364, z: -0, w: 0.68955183}
-  m_LocalPosition: {x: 0, y: 3.28, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -23.2, z: -22.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4934624682630666}
@@ -248,8 +248,10 @@ MonoBehaviour:
     maxHealth: 0
     hasWeapon: 0
     weaponChild: {fileID: 0}
+    weaponChildPath: 
     weaponAnim: {fileID: 0}
     droppedWeaponObject: {fileID: 0}
+    droppedWeaponObjectPath: 
     DM: {fileID: 0}
 --- !u!114 &114123561074342638
 MonoBehaviour:
@@ -279,7 +281,7 @@ MonoBehaviour:
     collisionType: 1
     distanceCheck: 10
     newCameraHeight: 1
-    offset: {x: 0, y: 0, z: 0}
+    offset: {x: 0, y: 1, z: 0}
   controls:
   - target: 1
     stepSize: 2
