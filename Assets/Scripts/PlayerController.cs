@@ -106,6 +106,17 @@ public class PlayerController : MonoBehaviour {
         //Weapon Stuff
         delay -= Time.deltaTime;
         dashDelay -= Time.deltaTime;
+        GameObject tk = GameObject.Find("TK");
+        if (tk)
+        {
+            WeaponFirearm tkScript = tk.GetComponent<WeaponFirearm>();
+            if (Input.GetAxis("Fire2") == 1)
+            {
+                GameObject _tk = Instantiate(tkScript.projectile, transform);
+                _tk.transform.localPosition = Vector3.zero;
+                _tk.GetComponent<Rigidbody>().AddForce(Vector3.forward * tkScript.bulletSpeed);
+            }
+        }
         if (localPlayerData.weaponChild != null)
         {
             localPlayerData.weaponAnim = localPlayerData.weaponChild.GetComponent<Animator>();
@@ -146,6 +157,7 @@ public class PlayerController : MonoBehaviour {
         localPlayerData.hasWeapon = false;
         Destroy(localPlayerData.weaponChild.gameObject);
         localPlayerData.weaponChild = null;
+        localPlayerData.droppedWeaponObject.GetComponentInChildren<WeaponInteraction>().dropTime = 1.5f;
         localPlayerData.droppedWeaponObject.SetActive(true);
         localPlayerData.droppedWeaponObject.transform.parent = null;
         localPlayerData.droppedWeaponObject.GetComponent<Rigidbody>().AddForce(transform.forward);

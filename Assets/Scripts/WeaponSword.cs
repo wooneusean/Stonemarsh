@@ -10,7 +10,6 @@ public class WeaponSword : MonoBehaviour {
     public bool isAttacking = false;
     public int damage = 15;
     public Enemy enemyObject;
-    public float distFromPlayer = 2f;
     public GameObject player;
     private void Start()
     {
