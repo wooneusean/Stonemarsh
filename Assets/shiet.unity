@@ -470,7 +470,7 @@ Prefab:
     - target: {fileID: 224029916349906618, guid: 641a7718de1f0c74eb6e9a77d3560f08,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 443
+      value: 328
       objectReference: {fileID: 0}
     - target: {fileID: 224029916349906618, guid: 641a7718de1f0c74eb6e9a77d3560f08,
         type: 2}
@@ -2183,7 +2183,7 @@ MonoBehaviour:
   bumper:
     collisionType: 1
     distanceCheck: 10
-    newCameraHeight: 1
+    newCameraHeight: 0
     offset: {x: 0, y: 2, z: 0}
   controls:
   - target: 1
