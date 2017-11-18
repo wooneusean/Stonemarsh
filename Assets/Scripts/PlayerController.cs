@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour {
     public Transform interactedEntity;
     public Text healthText;
     public Text energyText;
+    public Text moneyText;
     public GameObject LoadingScreen;
 
     // Use this for initialization
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour {
         LoadingScreen = GameObject.Find("Canvas/LoadingScreen");
         healthText = GameObject.Find("Canvas/HealthText").GetComponent<Text>();
         energyText = GameObject.Find("Canvas/EnergyText").GetComponent<Text>();
+        moneyText = GameObject.Find("Canvas/MoneyText").GetComponent<Text>();
         lastTapTime = 0;
         Cursor.lockState = CursorLockMode.Locked;
         player = GetComponent<Rigidbody>();
@@ -88,35 +90,30 @@ public class PlayerController : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
+        Debug.Log(maxHealth);
+        //QuickSaving
         if (Input.GetKeyDown(KeyCode.F5))
         {
             SavePlayer();
         }
-        energyCooldown -= Time.deltaTime;
-        if (localPlayerData.currentEnergy != maxEnergy && energyCooldown <= 0)
-        {
-            localPlayerData.currentEnergy += 1;
-        }
-        else if (localPlayerData.currentEnergy >= maxEnergy)
+        //Player Stat Controlling
+        
+        //Energy
+        if (localPlayerData.currentEnergy >= maxEnergy)
         {
             localPlayerData.currentEnergy = maxEnergy;
         }
+        //Health
+        if(localPlayerData.currentHealth >= maxHealth)
+        {
+            localPlayerData.currentHealth = maxHealth;
+        }
         healthText.text = "Health: " + localPlayerData.currentHealth.ToString();
         energyText.text = "Energy: " + localPlayerData.currentEnergy.ToString();
+        moneyText.text = "$" + localPlayerData.money.ToString();
         //Weapon Stuff
         delay -= Time.deltaTime;
         dashDelay -= Time.deltaTime;
-        GameObject tk = GameObject.Find("TK");
-        if (tk)
-        {
-            WeaponFirearm tkScript = tk.GetComponent<WeaponFirearm>();
-            if (Input.GetAxis("Fire2") == 1)
-            {
-                GameObject _tk = Instantiate(tkScript.projectile, transform);
-                _tk.transform.localPosition = Vector3.zero;
-                _tk.GetComponent<Rigidbody>().AddForce(Vector3.forward * tkScript.bulletSpeed);
-            }
-        }
         if (localPlayerData.weaponChild != null)
         {
             localPlayerData.weaponAnim = localPlayerData.weaponChild.GetComponent<Animator>();

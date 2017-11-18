@@ -6,6 +6,7 @@ using System.Collections.Generic;
 [AddComponentMenu("Camera-Control/SmoothCameraAdvanced")]
 class SmoothCameraAdvanced : MonoBehaviour
 {
+    public bool followTarget = true;
     #region Private Properties
 
     private static SmoothCameraAdvanced instance = null;
@@ -219,18 +220,18 @@ class SmoothCameraAdvanced : MonoBehaviour
         if (wantedPosition != CameraTransform.position)
         {
             wantedPosition = Bumper.UpdatePosition(target, CameraTransform, wantedPosition, Time.deltaTime * damping);
-
-            switch (translationType)
-            {
-                case MovementType.Instant: CameraTransform.position = wantedPosition; break;
-                case MovementType.LinearInterpolation:
-                    CameraTransform.position = Vector3.Lerp(CameraTransform.position, wantedPosition, Time.deltaTime * damping);
-                    break;
-                case MovementType.SphericalLinearInterpolation:
-                    CameraTransform.position = Vector3.Slerp(CameraTransform.position, wantedPosition, Time.deltaTime * damping);
-                    break;
+            if (followTarget) {
+                switch (translationType)
+                {
+                    case MovementType.Instant: CameraTransform.position = wantedPosition; break;
+                    case MovementType.LinearInterpolation:
+                        CameraTransform.position = Vector3.Lerp(CameraTransform.position, wantedPosition, Time.deltaTime * damping);
+                        break;
+                    case MovementType.SphericalLinearInterpolation:
+                        CameraTransform.position = Vector3.Slerp(CameraTransform.position, wantedPosition, Time.deltaTime * damping);
+                        break;
+                }
             }
-
             /// Rotate Camera
             Vector3 lookPosition = target.TransformPoint(lookAtOffset + RuntimeOffset);
             Quaternion wantedRotation = Quaternion.LookRotation(lookPosition - CameraTransform.position, target.up);
