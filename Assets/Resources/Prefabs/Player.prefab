@@ -155,6 +155,7 @@ MonoBehaviour:
   dashSpeed: 16
   maxHealth: 100
   maxEnergy: 20
+  maxExp: 100
   dashAngleModifier: 0.5
   dashDelay: 1.5
   canDash: 0
@@ -170,12 +171,19 @@ MonoBehaviour:
   interactedEntity: {fileID: 0}
   healthText: {fileID: 0}
   energyText: {fileID: 0}
+  moneyText: {fileID: 0}
+  levelText: {fileID: 0}
+  expText: {fileID: 0}
   LoadingScreen: {fileID: 0}
   localPlayerData:
+    currentLevel: 0
+    currentExp: 0
+    maxExp: 0
     currentHealth: 0
     maxHealth: 0
     currentEnergy: 0
     maxEnergy: 0
+    money: 0
     hasWeapon: 0
     weaponChild: {fileID: 0}
     weaponChildPath: 

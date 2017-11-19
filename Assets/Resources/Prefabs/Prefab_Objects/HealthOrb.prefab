@@ -23,9 +23,11 @@ GameObject:
   - component: {fileID: 135603495818641182}
   - component: {fileID: 23156090733854576}
   - component: {fileID: 114391746750330266}
+  - component: {fileID: 54748123397889016}
+  - component: {fileID: 135107743389665768}
   m_Layer: 2
   m_Name: HealthOrb
-  m_TagString: Untagged
+  m_TagString: PickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,6 +86,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1540794146783598}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54748123397889016
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1540794146783598}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 1
 --- !u!114 &114391746750330266
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -100,6 +117,18 @@ MonoBehaviour:
   isCurrency: 0
   isHealth: 1
   isEnergy: 0
+--- !u!135 &135107743389665768
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1540794146783598}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135603495818641182
 SphereCollider:
   m_ObjectHideFlags: 1

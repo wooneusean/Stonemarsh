@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour {
     public float dashSpeed = 16f;
     public int maxHealth = 100;
     public int maxEnergy = 20;
+    public int maxExp = 100;
     [Range(0.1f,1)]
     public float dashAngleModifier = 0.5f;
     public float dashDelay = 1.5f;
@@ -39,78 +40,57 @@ public class PlayerController : MonoBehaviour {
     public Text healthText;
     public Text energyText;
     public Text moneyText;
+    public Text levelText;
+    public Text expText;
     public GameObject LoadingScreen;
 
     // Use this for initialization
     public PlayerStatistics localPlayerData = new PlayerStatistics();
     void Start () {
-        iText = GameObject.Find("Canvas/iText");
-        LoadingScreen = GameObject.Find("Canvas/LoadingScreen");
-        healthText = GameObject.Find("Canvas/HealthText").GetComponent<Text>();
-        energyText = GameObject.Find("Canvas/EnergyText").GetComponent<Text>();
-        moneyText = GameObject.Find("Canvas/MoneyText").GetComponent<Text>();
-        lastTapTime = 0;
+        InitGO();
+
         Cursor.lockState = CursorLockMode.Locked;
-        player = GetComponent<Rigidbody>();
-        delay = attackDelay;
-        DM = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
-        localPlayerData.maxHealth = maxHealth;
-        localPlayerData.maxEnergy = maxEnergy;
-        GlobalControl.Instance.savedPlayerData.maxHealth = localPlayerData.maxHealth;
-        GlobalControl.Instance.savedPlayerData.maxEnergy = localPlayerData.maxEnergy;
-        if (GlobalControl.Instance.savedPlayerData.currentHealth == 0)
-        {
-            GlobalControl.Instance.savedPlayerData.currentHealth = localPlayerData.maxHealth;
-        }
-        if (GlobalControl.Instance.savedPlayerData.currentEnergy == 0)
-        {
-            GlobalControl.Instance.savedPlayerData.currentEnergy = localPlayerData.maxEnergy;
-        }
+
+        InitGC();
+
         LoadPlayer();
-        if (GlobalControl.Instance.savedPlayerData.hasWeapon)
-        {
-            GlobalControl.Instance.savedPlayerData.weaponChild = Resources.Load<Transform>(GlobalControl.Instance.savedPlayerData.weaponChildPath);
-            GlobalControl.Instance.savedPlayerData.droppedWeaponObject = Resources.Load<GameObject>(GlobalControl.Instance.savedPlayerData.droppedWeaponObjectPath);
-            Debug.Log(GlobalControl.Instance.savedPlayerData.droppedWeaponObjectPath);
-            localPlayerData.droppedWeaponObject = Instantiate(Resources.Load<GameObject>(GlobalControl.Instance.savedPlayerData.droppedWeaponObjectPath), transform);
-            localPlayerData.droppedWeaponObject.transform.localPosition = Vector3.zero;
-            localPlayerData.droppedWeaponObject.SetActive(false);
-            localPlayerData.weaponChild = Instantiate(Resources.Load<Transform>(GlobalControl.Instance.savedPlayerData.weaponChildPath), transform).transform;
-        }
+
+        InitWeap();
+
         iText.SetActive(false);
+
         LoadingScreen.SetActive(false);
-    }
-    public void LoadPlayer()
-    {
-        localPlayerData = GlobalControl.Instance.savedPlayerData;
-    }
-    public void SavePlayer()
-    {
-        GlobalControl.Instance.savedPlayerData = localPlayerData;
     }
     // Update is called once per frame
     void Update () {
-        Debug.Log(maxHealth);
         //QuickSaving
         if (Input.GetKeyDown(KeyCode.F5))
         {
             SavePlayer();
         }
         //Player Stat Controlling
-        
-        //Energy
-        if (localPlayerData.currentEnergy >= maxEnergy)
+        //Level
+        if (localPlayerData.currentExp >= localPlayerData.maxExp)
         {
-            localPlayerData.currentEnergy = maxEnergy;
+            int lvlDiff = localPlayerData.currentExp - localPlayerData.maxExp;
+            LevelUp();
+            AddExp(lvlDiff);
+        }
+        //Energy
+        if (localPlayerData.currentEnergy >= localPlayerData.maxEnergy)
+        {
+            localPlayerData.currentEnergy = localPlayerData.maxEnergy;
         }
         //Health
-        if(localPlayerData.currentHealth >= maxHealth)
+        if(localPlayerData.currentHealth >= localPlayerData.maxHealth)
         {
-            localPlayerData.currentHealth = maxHealth;
+            localPlayerData.currentHealth = localPlayerData.maxHealth;
         }
         healthText.text = "Health: " + localPlayerData.currentHealth.ToString();
         energyText.text = "Energy: " + localPlayerData.currentEnergy.ToString();
         moneyText.text = "$" + localPlayerData.money.ToString();
+        levelText.text = "lvl. " + localPlayerData.currentLevel;
+        expText.text = localPlayerData.currentExp + "/" + localPlayerData.maxExp; 
         //Weapon Stuff
         delay -= Time.deltaTime;
         dashDelay -= Time.deltaTime;
@@ -149,6 +129,43 @@ public class PlayerController : MonoBehaviour {
         }
 
     }
+    //==========Levels===================
+    void LevelUp()
+    {
+        AddLevel(1);
+        localPlayerData.currentExp = 0;
+        localPlayerData.maxExp += Mathf.RoundToInt(0.2f * localPlayerData.maxExp);
+        localPlayerData.currentEnergy = localPlayerData.maxEnergy;
+        if (IsDivisble(localPlayerData.currentLevel, 5))
+        {
+            localPlayerData.maxHealth += Mathf.RoundToInt(0.15f * localPlayerData.maxHealth);
+        }
+        localPlayerData.currentHealth = localPlayerData.maxHealth;
+    }
+    public bool IsDivisble(int x, int n)
+    {
+        return (x % n) == 0;
+    }
+    public void AddExp(int Exp)
+    {
+        localPlayerData.currentExp += Exp;
+    }
+    public void AddLevel(int Level)
+    {
+        localPlayerData.currentLevel += Level;
+    }
+    //===================================
+    //
+    //==========SaveLoad=================
+    public void LoadPlayer()
+    {
+        localPlayerData = GlobalControl.Instance.savedPlayerData;
+    }
+    public void SavePlayer()
+    {
+        GlobalControl.Instance.savedPlayerData = localPlayerData;
+    }
+    //====================================
     void DropWeapon()
     {
         localPlayerData.hasWeapon = false;
@@ -248,5 +265,52 @@ public class PlayerController : MonoBehaviour {
         //}
         Vector3 movement = transform.forward * z + transform.right * x;
         transform.Translate(movement.normalized * Time.deltaTime * moveSpeed * runSpeed, Space.World);
+    }
+    void InitWeap()
+    {
+        if (GlobalControl.Instance.savedPlayerData.hasWeapon)
+        {
+            GlobalControl.Instance.savedPlayerData.weaponChild = Resources.Load<Transform>(GlobalControl.Instance.savedPlayerData.weaponChildPath);
+            GlobalControl.Instance.savedPlayerData.droppedWeaponObject = Resources.Load<GameObject>(GlobalControl.Instance.savedPlayerData.droppedWeaponObjectPath);
+            Debug.Log(GlobalControl.Instance.savedPlayerData.droppedWeaponObjectPath);
+            localPlayerData.droppedWeaponObject = Instantiate(Resources.Load<GameObject>(GlobalControl.Instance.savedPlayerData.droppedWeaponObjectPath), transform);
+            localPlayerData.droppedWeaponObject.transform.localPosition = Vector3.zero;
+            localPlayerData.droppedWeaponObject.SetActive(false);
+            localPlayerData.weaponChild = Instantiate(Resources.Load<Transform>(GlobalControl.Instance.savedPlayerData.weaponChildPath), transform).transform;
+        }
+    }
+    void InitGC()
+    {
+        delay = attackDelay;
+        localPlayerData.maxHealth = maxHealth;
+        localPlayerData.maxEnergy = maxEnergy;
+        localPlayerData.maxExp = maxExp;
+        GlobalControl.Instance.savedPlayerData.maxHealth = localPlayerData.maxHealth;
+        GlobalControl.Instance.savedPlayerData.maxEnergy = localPlayerData.maxEnergy;
+        GlobalControl.Instance.savedPlayerData.maxExp = localPlayerData.maxExp;
+        if (GlobalControl.Instance.savedPlayerData.currentHealth == 0)
+        {
+            GlobalControl.Instance.savedPlayerData.currentHealth = localPlayerData.maxHealth;
+        }
+        if (GlobalControl.Instance.savedPlayerData.currentEnergy == 0)
+        {
+            GlobalControl.Instance.savedPlayerData.currentEnergy = localPlayerData.maxEnergy;
+        }
+        if (GlobalControl.Instance.savedPlayerData.maxExp == 0)
+        {
+            GlobalControl.Instance.savedPlayerData.maxExp = localPlayerData.maxExp;
+        }
+    }
+    void InitGO()
+    {
+        iText = GameObject.Find("Canvas/iText");
+        LoadingScreen = GameObject.Find("Canvas/LoadingScreen");
+        healthText = GameObject.Find("Canvas/HealthText").GetComponent<Text>();
+        energyText = GameObject.Find("Canvas/EnergyText").GetComponent<Text>();
+        moneyText = GameObject.Find("Canvas/MoneyText").GetComponent<Text>();
+        levelText = GameObject.Find("Canvas/LevelText").GetComponent<Text>();
+        expText = GameObject.Find("Canvas/ExpText").GetComponent<Text>();
+        player = GetComponent<Rigidbody>();
+        DM = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
     }
 }

@@ -23,9 +23,11 @@ GameObject:
   - component: {fileID: 135607455069624298}
   - component: {fileID: 23656926247090992}
   - component: {fileID: 114146390149776324}
+  - component: {fileID: 54241006166130654}
+  - component: {fileID: 135871999012464678}
   m_Layer: 2
   m_Name: EnergyOrb
-  m_TagString: Untagged
+  m_TagString: PickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,6 +86,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1214071246524782}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54241006166130654
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1214071246524782}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 1
 --- !u!114 &114146390149776324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -98,6 +115,8 @@ MonoBehaviour:
   magnetSpeed: 4
   rotateSpeed: 600
   isCurrency: 0
+  isHealth: 0
+  isEnergy: 1
 --- !u!135 &135607455069624298
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -109,4 +128,16 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 4
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &135871999012464678
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1214071246524782}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

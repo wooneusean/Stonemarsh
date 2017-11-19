@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class ItemPickup : MonoBehaviour {
+public class ItemPickup : MonoBehaviour
+{
 
     PlayerController player;
     [Range(1, 5)]
@@ -16,8 +18,9 @@ public class ItemPickup : MonoBehaviour {
     public bool isEnergy = false;
     int energy;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         if (!player)
         {
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -28,37 +31,45 @@ public class ItemPickup : MonoBehaviour {
         }
         if (isHealth == true)
         {
-            health = Mathf.RoundToInt((float)0.03 * player.maxHealth);
-            Debug.Log(health);
+            health = Mathf.RoundToInt(0.03f * player.maxHealth);
         }
         if (isEnergy == true)
         {
             energy = 5;
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-        if (!(Vector3.Distance(transform.position,player.transform.position) <= .5f))
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed);
+        if (!(Vector3.Distance(transform.position, player.transform.position) <= .5f))
         {
             if (inRange)
             {
-                PickUp();
+                Attract();
             }
         }
-        else
-        {
-            player.localPlayerData.money += value;
-            player.localPlayerData.currentHealth += health;
-            player.localPlayerData.currentEnergy += energy;
-            Destroy(gameObject);
-        }
-	}
+    }
     void PickUp()
     {
-        transform.RotateAround(player.transform.position,Vector3.up, rotateSpeed * Time.deltaTime);
+        player.localPlayerData.money += value;
+        player.localPlayerData.currentHealth += health;
+        player.localPlayerData.currentEnergy += energy;
+        Destroy(gameObject);
+    }
+    void Attract()
+    {
+        transform.RotateAround(player.transform.position, Vector3.up, rotateSpeed * Time.deltaTime);
         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, magnetSpeed * (Vector3.Distance(transform.position, player.transform.position)) * Time.deltaTime);
         //transform.position = Vector3.Lerp(transform.position, player.transform.position, (multiplier * (Vector3.Distance(transform.position,player.transform.position))) * Time.deltaTime);
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            PickUp();
+        }
     }
     private void OnTriggerStay(Collider other)
     {
@@ -66,6 +77,6 @@ public class ItemPickup : MonoBehaviour {
         {
             inRange = true;
         }
-    }
 
+    }
 }

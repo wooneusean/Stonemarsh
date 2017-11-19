@@ -8,11 +8,17 @@ using UnityEngine.UI;
 public struct PlayerStatistics
 {
     public int currentLevel;
+    public int currentExp;
+    public int maxExp;
+
     public int currentHealth;
     public int maxHealth;
+
     public int currentEnergy;
     public int maxEnergy;
+
     public int money;
+
     public bool hasWeapon;
     public Transform weaponChild;
     public string weaponChildPath;

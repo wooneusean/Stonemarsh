@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockback: 2
-  damage: 1
+  damage: 20
   enemyObject: {fileID: 0}
   destroyTimer: 2
 --- !u!135 &135357108295491072

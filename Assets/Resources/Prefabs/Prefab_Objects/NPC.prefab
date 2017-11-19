@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4089805925773162}
   - component: {fileID: 135824222673336398}
   - component: {fileID: 114657213935899650}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Interaction
   m_TagString: Interaction
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 23504263012802934}
   - component: {fileID: 114537469263382740}
   - component: {fileID: 65002566953310152}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: NPC
   m_TagString: NPC
   m_Icon: {fileID: 0}

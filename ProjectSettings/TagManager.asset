@@ -10,6 +10,7 @@ TagManager:
   - Weapon
   - Ground
   - Prop
+  - PickUp
   layers:
   - Default
   - TransparentFX
