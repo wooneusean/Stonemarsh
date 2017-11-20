@@ -155,9 +155,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  damage: 2
+  damage: 5
   maxHealth: 20
   moveSpeed: 8
+  difficulty: 1
+  expDrop: 25
   currentTarget: {fileID: 0}
   collCurrTarget: {fileID: 0}
   distFromPlayer: 2.5

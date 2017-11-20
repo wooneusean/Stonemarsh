@@ -7,7 +7,6 @@ public class ItemPickup : MonoBehaviour
 {
 
     PlayerController player;
-    [Range(1, 5)]
     public float magnetSpeed;
     public float rotateSpeed;
     bool inRange = false;

@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 54126913047558430}
   - component: {fileID: 114054212305973612}
   - component: {fileID: 136773761729347996}
+  - component: {fileID: 114638680907938216}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -144,27 +145,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sens: 2
   lookDamping: 1
-  moveSpeed: 10
   Grounded: 1
   groundRange: 1.01
   jumpHeight: 8
   player: {fileID: 54126913047558430}
   playerMovement: 1
-  attackDelay: 0.5
-  delay: 0
+  turnWithMove: 0
+  attackDelay: 0.3
+  delay: -15.069529
   dashSpeed: 16
   maxHealth: 100
   maxEnergy: 20
   maxExp: 100
   dashAngleModifier: 0.5
-  dashDelay: 1.5
-  canDash: 0
+  dashDelay: -13.5695305
+  canDash: 1
   tapSpeed: 0.2
   timesJumped: 0
   jumpDelay: 0.3
-  jumpTime: 0
+  jumpTime: 0.5
   isJumping: 0
-  energyCooldown: 2
   DM: {fileID: 0}
   iText: {fileID: 0}
   inRange: 0
@@ -174,22 +174,58 @@ MonoBehaviour:
   moneyText: {fileID: 0}
   levelText: {fileID: 0}
   expText: {fileID: 0}
+  classText: {fileID: 0}
+  intText: {fileID: 0}
+  strText: {fileID: 0}
+  dexText: {fileID: 0}
+  statMenu: {fileID: 0}
   LoadingScreen: {fileID: 0}
   localPlayerData:
     currentLevel: 0
     currentExp: 0
-    maxExp: 0
-    currentHealth: 0
-    maxHealth: 0
-    currentEnergy: 0
-    maxEnergy: 0
-    money: 0
+    maxExp: 100
+    currentHealth: 100
+    maxHealth: 100
+    currentEnergy: 20
+    maxEnergy: 20
+    money: 55
+    moveSpeed: 0
+    critChance: 0
+    critMultiplier: 0
+    playerClass: 
+    playerStr: 0
+    playerInt: 0
+    playerDex: 0
+    unusedSkillPoints: 0
+    attackSpeed: 0
     hasWeapon: 0
     weaponChild: {fileID: 0}
     weaponChildPath: 
     weaponAnim: {fileID: 0}
     droppedWeaponObject: {fileID: 0}
     droppedWeaponObjectPath: 
+--- !u!114 &114638680907938216
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1260741320283944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea9d3fb7517bf4b458f72139758ec3bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  speedToAdd: 2
+  speedDuration: 4
+  ManaCostSB: 8
+  cooldownSB: 5
+  cdsb: 0
+  healthOverTime: 1
+  healDuration: 3
+  ManaCostSH: 10
+  cooldownSH: 5
+  cdsh: 0
 --- !u!136 &136773761729347996
 CapsuleCollider:
   m_ObjectHideFlags: 1

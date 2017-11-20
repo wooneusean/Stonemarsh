@@ -13,10 +13,12 @@ public class CamPosChange : MonoBehaviour {
             {
                 case true:
                     cam.followTarget = false;
+                    other.GetComponent<PlayerController>().turnWithMove = true;
                     cam.transform.position = camPos.transform.position;
                     break;
                 case false:
                     cam.followTarget = true;
+                    other.GetComponent<PlayerController>().turnWithMove = false;
                     break;
             }
         }

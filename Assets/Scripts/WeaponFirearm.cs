@@ -10,7 +10,6 @@ public class WeaponFirearm : MonoBehaviour {
     public GameObject player;
     public PlayerController playerScript;
     public bool isAttacking = false;
-    public float delay;
     public GameObject projectile;
     public float bulletSpeed = 100f;
     public int energyConsumption = 5;
@@ -22,8 +21,7 @@ public class WeaponFirearm : MonoBehaviour {
             return;
         }
         playerScript = player.GetComponent<PlayerController>();
-        rateOfFire = player.GetComponent<PlayerController>().attackDelay;
-        delay = rateOfFire;
+        rateOfFire = playerScript.localPlayerData.attackSpeed;
 
     }
     Vector3 prjPos;
@@ -38,24 +36,35 @@ public class WeaponFirearm : MonoBehaviour {
         }
         prjPos = transform.position + new Vector3(0f, -0.0065f, 0.004f);
         prjRotation = player.transform.rotation;
-        delay -= 1 * Time.deltaTime;
+        rateOfFire -= 1 * Time.deltaTime;
     }
     private void FixedUpdate()
     {
         prjForce = player.transform.forward * bulletSpeed;
-        if (isAttacking && delay <= 0 && playerScript.localPlayerData.currentEnergy >= energyConsumption)
+        if (isAttacking && rateOfFire <= 0 && playerScript.localPlayerData.currentEnergy >= energyConsumption)
         {
-            playerScript.localPlayerData.currentEnergy -= energyConsumption;
-            playerScript.energyCooldown = 2f;
-            delay = rateOfFire;
+            playerScript.localPlayerData.currentEnergy -= (energyConsumption - (playerScript.localPlayerData.playerInt / 10));
+            rateOfFire = playerScript.localPlayerData.attackSpeed;
             Attack();
         }
 
 
     }
+    float Crit(float percent, float critMultiplier)
+    {
+        if (Random.value <= (percent / 100f))
+        {
+            return critMultiplier;
+        }
+        return 1f;
+    }
     void Attack()
     {
         var clone = Instantiate(projectile,prjPos,prjRotation);
+        var cloneScript = clone.GetComponent<WeaponProjectile>();
+        Debug.Log(cloneScript.damage + "Dmg");
+        cloneScript.damage *= Mathf.RoundToInt(Crit(playerScript.localPlayerData.critChance, playerScript.localPlayerData.critMultiplier));
+        Debug.Log(cloneScript.damage + "Dmg");
         clone.GetComponent<Rigidbody>().AddForce(prjForce,ForceMode.VelocityChange);
         //Test for bool, if yes instantiate bullet with speed, control bool with animator.
     }

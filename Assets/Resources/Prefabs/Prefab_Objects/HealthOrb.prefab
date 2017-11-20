@@ -40,7 +40,7 @@ Transform:
   m_GameObject: {fileID: 1540794146783598}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.261296, y: 0.6500852, z: 1.9972916}
-  m_LocalScale: {x: 0.51, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c61f3b7464253c143a485b1fd91208d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magnetSpeed: 4
+  magnetSpeed: 10
   rotateSpeed: 600
   isCurrency: 0
   isHealth: 1
@@ -139,5 +139,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
