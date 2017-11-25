@@ -15,17 +15,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: GH_Mid
-    second: {fileID: 2100000, guid: 462c4370bef6e8e40b0628f55cf4d7bc, type: 2}
+    second: {fileID: 2100000, guid: 739f5771ac861fa4aae77492e752671b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: GH_Stone
-    second: {fileID: 2100000, guid: 2dd0632a7c47bd2448956becbb87a9bd, type: 2}
+    second: {fileID: 2100000, guid: 85f92bf02afc8994ba186e6a11362dde, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material
-    second: {fileID: 2100000, guid: d097d24778bc8d14fbf72858b08c6793, type: 2}
+    second: {fileID: 2100000, guid: 3149c25820ed62c499eb7e5897633c75, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -74,9 +74,9 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
-    normalSmoothAngle: 60
+    normalSmoothAngle: 0
     normalImportMode: 0
-    tangentImportMode: 3
+    tangentImportMode: 0
     normalCalculationMode: 4
   importAnimation: 1
   copyAvatar: 0

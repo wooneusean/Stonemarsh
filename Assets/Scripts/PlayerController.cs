@@ -6,8 +6,12 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
     #region Variables
-    
+
     [Header("Player Settings")]
+    public PlayerSkills skillSlot1;
+    public PlayerSkills skillSlot2;
+    public PlayerSkills skillSlot3;
+
     public int sens = 3;
     public float lookDamping = 2f;
     public bool Grounded;
@@ -93,6 +97,33 @@ public class PlayerController : MonoBehaviour {
         {
             LoadPlayer();
         }
+        //Skills
+        PlayerSkills.SkillProperties sp;
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            sp = skillSlot1.skillProperties;
+            if ((sp.manacost <= localPlayerData.currentEnergy) && (sp.currentCooldown <= 0))
+            {
+                skillSlot1.CastAbility();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            sp = skillSlot2.skillProperties;
+            if ((sp.manacost <= localPlayerData.currentEnergy) && (sp.currentCooldown <= 0))
+            {
+                skillSlot2.CastAbility();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            sp = skillSlot3.skillProperties;
+            if ((sp.manacost <= localPlayerData.currentEnergy) && (sp.currentCooldown <= 0))
+            {
+                skillSlot3.CastAbility();
+            }
+        }
+
         //Player Stat Controlling
         //Level
         if (localPlayerData.currentExp >= localPlayerData.maxExp)
@@ -182,7 +213,6 @@ public class PlayerController : MonoBehaviour {
             localPlayerData.critMultiplier = 1;
             localPlayerData.attackSpeed = 1f;
             delay = localPlayerData.attackSpeed;
-            Debug.Log("1");
         }
         if (classID == 1)
         {
@@ -200,7 +230,6 @@ public class PlayerController : MonoBehaviour {
             localPlayerData.critMultiplier = 1;
             localPlayerData.attackSpeed = 1.5f;
             delay = localPlayerData.attackSpeed;
-            Debug.Log("1");
         }
         if (classID == 2)
         {
@@ -218,7 +247,6 @@ public class PlayerController : MonoBehaviour {
             localPlayerData.critMultiplier = 1.5f;
             localPlayerData.attackSpeed = 0.5f;
             delay = localPlayerData.attackSpeed;
-            Debug.Log("2");
         }
         if (classID == 3)
         {
@@ -236,7 +264,6 @@ public class PlayerController : MonoBehaviour {
             localPlayerData.critMultiplier = 1.3f;
             localPlayerData.attackSpeed = 1.3f;
             delay = localPlayerData.attackSpeed;
-            Debug.Log("3");
         }
     }
 
@@ -427,6 +454,9 @@ public class PlayerController : MonoBehaviour {
     }
     void InitUI()
     {
+        skillSlot1 = GameObject.Find("Canvas/SkillBar/1").GetComponent<PlayerSkills>();
+        skillSlot2 = GameObject.Find("Canvas/SkillBar/2").GetComponent<PlayerSkills>();
+        skillSlot3 = GameObject.Find("Canvas/SkillBar/3").GetComponent<PlayerSkills>();
         statMenu = GameObject.Find("Canvas/StatMenu");
         iText = GameObject.Find("Canvas/iText");
         classText = GameObject.Find("Canvas/StatMenu/ClassText").GetComponent<Text>();

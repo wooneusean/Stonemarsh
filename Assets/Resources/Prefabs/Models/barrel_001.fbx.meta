@@ -15,7 +15,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: No Name
-    second: {fileID: 2100000, guid: a3d74ff3771089042af8aa462d0d26a3, type: 2}
+    second: {fileID: 2100000, guid: 1794bfcee0301074893c71a3b30085b4, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -64,9 +64,9 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
-    normalSmoothAngle: 60
+    normalSmoothAngle: 0
     normalImportMode: 0
-    tangentImportMode: 3
+    tangentImportMode: 0
     normalCalculationMode: 4
   importAnimation: 1
   copyAvatar: 0

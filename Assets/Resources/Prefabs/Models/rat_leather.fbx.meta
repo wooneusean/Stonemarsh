@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 9df5048577aa3694ba4dcd45b16d894d
-timeCreated: 1510384993
+guid: 13d7fd66bef064147b6c603ab5c572fa
+timeCreated: 1511604876
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -9,28 +9,18 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Sphere
+    4300000: Cube
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Ash
-    second: {fileID: 2100000, guid: b7c36d536d4754541a870929d1fc4124, type: 2}
+      name: rat_fur
+    second: {fileID: 2100000, guid: e87f5cbd95b0a994280b081cb4e5f255, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material
-    second: {fileID: 2100000, guid: 3149c25820ed62c499eb7e5897633c75, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Stone
-    second: {fileID: 2100000, guid: e0d0c6b9776c82f4d849eff4e416f28e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Wood
-    second: {fileID: 2100000, guid: fcafa1fd4ae306f468d2defdc2ebbc02, type: 2}
+      name: rat_skin
+    second: {fileID: 2100000, guid: 1fabed5cf6e6d154a9fd6b1f1ee539a4, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -79,9 +69,9 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
-    normalSmoothAngle: 0
+    normalSmoothAngle: 60
     normalImportMode: 0
-    tangentImportMode: 0
+    tangentImportMode: 3
     normalCalculationMode: 4
   importAnimation: 1
   copyAvatar: 0

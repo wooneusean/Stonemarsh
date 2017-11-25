@@ -41,7 +41,10 @@ public class ItemPickup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed);
+        if(isEnergy || isHealth || isCurrency)
+        {
+            transform.Rotate(Vector3.up * Time.deltaTime * rotateSpeed);
+        }
         if (!(Vector3.Distance(transform.position, player.transform.position) <= .5f))
         {
             if (inRange)
