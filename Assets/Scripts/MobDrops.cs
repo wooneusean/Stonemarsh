@@ -1,14 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class ItemPickup : MonoBehaviour {
+public class MobDrops : MonoBehaviour
+{
 
-    public Item item;
     PlayerController player;
     public float magnetSpeed = 10f;
     public float rotateSpeed = 600f;
     bool inRange = false;
+    public bool isCurrency = false;
+    int value;
+    public bool isHealth = false;
+    int health;
+    public bool isEnergy = false;
+    int energy;
 
     // Use this for initialization
     void Start()
@@ -16,6 +23,18 @@ public class ItemPickup : MonoBehaviour {
         if (!player)
         {
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        }
+        if (isCurrency == true)
+        {
+            value = Random.Range(1, 30);
+        }
+        if (isHealth == true)
+        {
+            health = Mathf.RoundToInt(0.03f * player.maxHealth);
+        }
+        if (isEnergy == true)
+        {
+            energy = 5;
         }
     }
 
@@ -26,21 +45,16 @@ public class ItemPickup : MonoBehaviour {
         {
             if (inRange)
             {
-                if (Inventory.instance.HasSpace()) { 
-                    Attract();
-                }
-                else
-                {
-                    inRange = false;
-                }
+                Attract();
             }
         }
     }
     void PickUp()
     {
-        Inventory.instance.Add(item);
+        player.localPlayerData.money += value;
+        player.localPlayerData.currentHealth += health;
+        player.localPlayerData.currentEnergy += energy;
         Destroy(gameObject);
-
     }
     void Attract()
     {
@@ -50,7 +64,7 @@ public class ItemPickup : MonoBehaviour {
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag ("Player"))
+        if (collision.collider.CompareTag("Player"))
         {
             PickUp();
         }

@@ -5,8 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
+    public Transform camera;
     #region Variables
-
     [Header("Player Settings")]
     public PlayerSkills skillSlot1;
     public PlayerSkills skillSlot2;
@@ -295,14 +295,7 @@ public class PlayerController : MonoBehaviour {
         switch (menuName)
         {
             case "Stats":
-                if (!statMenu.activeInHierarchy)
-                {
-                    statMenu.SetActive(true);
-                }
-                else if (statMenu.activeInHierarchy)
-                {
-                    statMenu.SetActive(false);
-                }
+                statMenu.SetActive(!statMenu.activeSelf);
                 break;
         }
     }
@@ -423,21 +416,23 @@ public class PlayerController : MonoBehaviour {
         {
             runSpeed = 1f;
         }
-        //Vector3 movement = new Vector3(x, 0.0f, z);
-        if (!turnWithMove)
-        {
-            transform.Rotate(new Vector3(0.0f, Input.GetAxis("Mouse X"), 0.0f) * sens);
-        }
-        else
-        {
-            transform.Rotate(new Vector3(0.0f, Input.GetAxis("Horizontal"), 0.0f) * sens * 5f);
-        }
-        //if (movement != Vector3.zero)
+        //Vector3 movement = new Vector3(x, 0, z);
+        //if (!turnWithMove)
         //{
-        //    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), lookDamping);
+        //    transform.Rotate(new Vector3(0.0f, Input.GetAxis("Mouse X"), 0.0f) * sens);
+        //}
+        //else
+        //{
+        //    transform.Rotate(new Vector3(0.0f, Input.GetAxis("Horizontal"), 0.0f) * sens * 5f);
         //}
         Vector3 movement = transform.forward * z + transform.right * x;
-        transform.Translate(movement.normalized * Time.deltaTime * localPlayerData.moveSpeed * runSpeed, Space.World);
+        if (movement != Vector3.zero)
+        {
+            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y, transform.localEulerAngles.z);
+        }
+        
+        transform.position += (movement.normalized * Time.deltaTime * localPlayerData.moveSpeed * runSpeed);
+        //transform.Translate(movement.normalized * Time.deltaTime * localPlayerData.moveSpeed * runSpeed, Space.World);
     }
     void InitWeap()
     {

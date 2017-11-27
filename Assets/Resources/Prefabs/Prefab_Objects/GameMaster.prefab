@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4155665947786602}
   - component: {fileID: 114505949709221032}
+  - component: {fileID: 114953866250725866}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -52,10 +53,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   savedPlayerData:
+    currentLevel: 0
+    currentExp: 0
+    maxExp: 0
     currentHealth: 0
     maxHealth: 0
+    currentEnergy: 0
+    maxEnergy: 0
+    money: 0
+    moveSpeed: 0
+    critChance: 0
+    critMultiplier: 0
+    playerClass: 
+    playerStr: 0
+    playerInt: 0
+    playerDex: 0
+    unusedSkillPoints: 0
+    attackSpeed: 0
     hasWeapon: 0
     weaponChild: {fileID: 0}
+    weaponChildPath: 
     weaponAnim: {fileID: 0}
     droppedWeaponObject: {fileID: 0}
-    DM: {fileID: 0}
+    droppedWeaponObjectPath: 
+--- !u!114 &114953866250725866
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1922326717154288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f27d5bdacacd45342b188a31b32669c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  space: 9
+  items: []
